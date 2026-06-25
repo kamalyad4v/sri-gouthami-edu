@@ -1,0 +1,200 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  SUPER_ADMIN
+  COUNSELLOR
+  FACULTY
+  STUDENT
+  PARENT
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  INTERESTED
+  DOCUMENTS_PENDING
+  APPLICATION_SUBMITTED
+  VERIFIED
+  ADMITTED
+  REJECTED
+}
+
+enum DocStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id            String          @id @default(uuid())
+  email         String          @unique
+  name          String
+  role          Role            @default(STUDENT)
+  clerkUserId   String?         @unique
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  
+  // Relations
+  counsellorLeads Lead[]        @relation("CounsellorLeads")
+  studentApp     Application?   @relation("StudentApplication")
+  parentApp      Application[]  @relation("ParentApplications")
+  notes          CounsellorNote[]
+  logs           ActivityLog[]
+  notifications  Notification[]
+}
+
+model Campus {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  type        String    // e.g. "School", "Junior College", "Degree College", "ITI"
+  address     String
+  createdAt   DateTime  @default(now())
+  
+  programs    Program[]
+  leads       Lead[]
+  applications Application[]
+}
+
+model Program {
+  id          String    @id @default(uuid())
+  name        String    // e.g. "Intermediate (MPC)", "B.Sc Computer Science"
+  duration    String    // e.g. "2 Years", "3 Years"
+  campusId    String
+  campus      Campus    @relation(fields: [campusId], references: [id], onDelete: Cascade)
+  courses     Course[]
+  leads       Lead[]
+  applications Application[]
+
+  @@unique([name, campusId])
+}
+
+model Course {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  eligibility String
+  fees        Float
+  programId   String
+  program     Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
+  leads       Lead[]
+  applications Application[]
+}
+
+model Lead {
+  id             String          @id @default(uuid())
+  studentName    String
+  parentName     String
+  mobile         String
+  email          String
+  address        String
+  leadSource     String          @default("Website Enriched")
+  status         LeadStatus      @default(NEW)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  
+  // Relations
+  campusId       String
+  campus         Campus          @relation(fields: [campusId], references: [id])
+  programId      String
+  program        Program         @relation(fields: [programId], references: [id])
+  courseId       String
+  course         Course          @relation(fields: [courseId], references: [id])
+  counsellorId   String?
+  counsellor     User?           @relation("CounsellorLeads", fields: [counsellorId], references: [id])
+  
+  notes          CounsellorNote[]
+  activityLogs   ActivityLog[]
+}
+
+model Application {
+  id             String          @id @default(uuid())
+  applicationNo  String          @unique
+  studentId      String          @unique
+  student        User            @relation("StudentApplication", fields: [studentId], references: [id])
+  parentId       String?
+  parent         User?           @relation("ParentApplications", fields: [parentId], references: [id])
+  campusId       String
+  campus         Campus          @relation(fields: [campusId], references: [id])
+  programId      String
+  program        Program         @relation(fields: [programId], references: [id])
+  courseId       String
+  course         Course          @relation(fields: [courseId], references: [id])
+  status         LeadStatus      @default(NEW)
+  aiSummary      String?         // AI Application Summary cache
+  aiRiskFlags    String?         // AI Risk flags cached string
+  aiRecommendation String?       // AI Recommendation response cached
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  documents      Document[]
+  admissions     Admission[]
+}
+
+model Document {
+  id             String          @id @default(uuid())
+  name           String          // "Aadhaar", "SSC Memo", "Intermediate Memo", "Transfer Certificate", "Photo"
+  url            String
+  status         DocStatus       @default(PENDING)
+  rejectionReason String?
+  applicationId  String
+  application    Application     @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Admission {
+  id             String          @id @default(uuid())
+  admissionNo    String          @unique
+  feesPaid       Float           @default(0.0)
+  totalFees      Float
+  applicationId  String
+  application    Application     @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  admittedAt     DateTime        @default(now())
+}
+
+model CounsellorNote {
+  id             String          @id @default(uuid())
+  note           String
+  authorId       String
+  author         User            @relation(fields: [authorId], references: [id])
+  leadId         String
+  lead           Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+}
+
+model ActivityLog {
+  id             String          @id @default(uuid())
+  action         String          // e.g. "Status changed to Contacted", "Note added"
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  leadId         String
+  lead           Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+}
+
+model Notification {
+  id             String          @id @default(uuid())
+  title          String
+  message        String
+  isRead         Boolean         @default(false)
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+}
+
+model Report {
+  id             String          @id @default(uuid())
+  title          String
+  type           String          // "Admission", "Campus", "Course", "Counsellor"
+  format         String          // "PDF", "EXCEL", "CSV"
+  generatedBy    String
+  url            String
+  createdAt      DateTime        @default(now())
+}
