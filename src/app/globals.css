@@ -536,3 +536,19 @@
 .light ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
 }
+
+/* ============================================================
+   SPOTLIGHT NAVBAR GLASSMORPHISM
+   ============================================================ */
+.spotlight-nav {
+  border: 1px solid var(--glass-border);
+}
+.spotlight-nav-bg {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+.spotlight-nav-shadow {
+  box-shadow: var(--glass-shadow);
+}
+

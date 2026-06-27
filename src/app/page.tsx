@@ -22,6 +22,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { BentoGrid, type BentoItem } from '@/components/ui/bento-grid';
+import { SpotlightNavbar } from '@/components/ui/spotlight-navbar';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -102,12 +103,15 @@ export default function LandingPage() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-zinc-300">
-          <a href="#colleges" className="hover:text-emerald-400 transition-colors">Our Colleges</a>
-          <a href="#features" className="hover:text-emerald-400 transition-colors">Console Features</a>
-          <a href="#about" className="hover:text-emerald-400 transition-colors">About Us</a>
-          <a href="#why-choose-us" className="hover:text-emerald-400 transition-colors">Why Choose Us</a>
-        </nav>
+        <SpotlightNavbar
+          items={[
+            { label: "Our Colleges", href: "#colleges" },
+            { label: "Console Features", href: "#features" },
+            { label: "About Us", href: "#about" },
+            { label: "Why Choose Us", href: "#why-choose-us" },
+          ]}
+          className="hidden md:flex pt-0"
+        />
 
         <div className="hidden md:flex items-center gap-3">
           <Link
