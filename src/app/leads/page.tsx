@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import Link from 'next/link';
 import { getClientSession, UserSession } from '@/lib/auth-session';
 import { formatDate } from '@/lib/utils';
@@ -212,7 +213,7 @@ export default function LeadsPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 text-white">
       {/* Title Header */}
-      <div className="pb-4 border-b border-zinc-900 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+      <div className="pb-4 border-b border-zinc-900/40 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
           <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">
             Admissions CRM Leads Desk <span className="text-xs text-zinc-500">Workspace</span>
@@ -220,18 +221,18 @@ export default function LeadsPage() {
           <p className="text-zinc-400 text-xs mt-0.5">Filter queries, register prospective enquiries, and dispatch targets to counsellors.</p>
         </div>
 
-        <button
+        <Button
           onClick={() => setIsCreateOpen(true)}
           className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs transition-colors self-start sm:self-auto shadow-lg shadow-emerald-500/10"
         >
           <Plus className="h-4.5 w-4.5" />
           <span>New Enquiry</span>
-        </button>
+        </Button>
       </div>
 
       {/* Filter panel */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-zinc-950 border border-zinc-900">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 focus-within:border-emerald-500/50 transition-colors">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl glass-panel">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
           <Search className="h-4 w-4 text-zinc-500" />
           <input
             type="text"
@@ -242,7 +243,7 @@ export default function LeadsPage() {
           />
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
           <Filter className="h-4 w-4 text-zinc-500" />
           <select
             value={selectedCampus}
@@ -256,7 +257,7 @@ export default function LeadsPage() {
           </select>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
           <Filter className="h-4 w-4 text-zinc-500" />
           <select
             value={selectedStatus}
@@ -281,7 +282,7 @@ export default function LeadsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-zinc-900 bg-zinc-900/40 text-zinc-400 font-semibold uppercase tracking-wider">
+                <tr className="border-b border-zinc-900/40 glass-inner-card text-zinc-400 font-semibold uppercase tracking-wider">
                   <th className="p-4">Student Info</th>
                   <th className="p-4">Contact</th>
                   <th className="p-4">Campus & Stream Preference</th>
@@ -338,34 +339,34 @@ export default function LeadsPage() {
 
                     {/* Actions */}
                     <td className="p-4 text-right space-x-2">
-                      <button
+                      <Button
                         onClick={() => {
                           setActiveLead(lead);
                           setActiveStatus(lead.status);
                           setIsStatusOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors"
+                        className="p-1.5 rounded-lg glass-button hover:text-white transition-colors"
                         title="Update Status"
                       >
                         <Tag className="h-3.5 w-3.5" />
-                      </button>
+                      </Button>
 
-                      <button
+                      <Button
                         onClick={() => {
                           setActiveLead(lead);
                           setAssignCounsellorId(lead.counsellorId || '');
                           setIsAssignOpen(true);
                         }}
-                        className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors"
+                        className="p-1.5 rounded-lg glass-button hover:text-white transition-colors"
                         title="Assign Counsellor"
                       >
                         <UserPlus className="h-3.5 w-3.5" />
-                      </button>
+                      </Button>
 
                       {lead.counsellorId && (
                         <Link
                           href={`/counsellors?leadId=${lead.id}`}
-                          className="inline-flex p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors"
+                          className="inline-flex p-1.5 rounded-lg glass-button hover:text-white transition-colors"
                           title="Open Worksheet"
                         >
                           <Briefcase className="h-3.5 w-3.5" />
@@ -382,14 +383,14 @@ export default function LeadsPage() {
 
       {/* Modal: Create lead */}
       {isCreateOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
           <div className="w-full max-w-lg glass-panel p-6 rounded-2xl space-y-4 relative">
-            <button
+            <Button
               onClick={() => setIsCreateOpen(false)}
               className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400"
             >
               <X className="h-4.5 w-4.5" />
-            </button>
+            </Button>
 
             <div>
               <h2 className="text-sm font-bold text-white flex items-center gap-1.5">
@@ -408,7 +409,7 @@ export default function LeadsPage() {
                   placeholder="e.g. Aditya Varma"
                   value={formName}
                   onChange={e => setFormName(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 />
               </div>
 
@@ -420,7 +421,7 @@ export default function LeadsPage() {
                   placeholder="e.g. Srinivas Varma"
                   value={formParent}
                   onChange={e => setFormParent(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 />
               </div>
 
@@ -432,7 +433,7 @@ export default function LeadsPage() {
                   placeholder="e.g. 98480 22338"
                   value={formPhone}
                   onChange={e => setFormPhone(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 />
               </div>
 
@@ -444,7 +445,7 @@ export default function LeadsPage() {
                   placeholder="e.g. aditya@gmail.com"
                   value={formEmail}
                   onChange={e => setFormEmail(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 />
               </div>
 
@@ -455,11 +456,11 @@ export default function LeadsPage() {
                   placeholder="Street details, City"
                   value={formAddress}
                   onChange={e => setFormAddress(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 />
               </div>
 
-              <div className="space-y-1 col-span-2 border-t border-zinc-900 pt-2">
+              <div className="col-span-2 space-y-1 border-t border-zinc-900/40 pt-2">
                 <label className="text-[9px] font-bold text-zinc-500 uppercase">Target Campus Selection *</label>
                 <select
                   value={formCampus}
@@ -469,7 +470,7 @@ export default function LeadsPage() {
                     setFormCourse('');
                   }}
                   required
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 >
                   <option value="" className="bg-zinc-950">Select Campus</option>
                   {campuses.map(c => (
@@ -488,7 +489,7 @@ export default function LeadsPage() {
                   }}
                   required
                   disabled={!formCampus}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500 disabled:opacity-50"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none disabled:opacity-50"
                 >
                   <option value="" className="bg-zinc-950">Select Program</option>
                   {filteredPrograms.map(p => (
@@ -504,7 +505,7 @@ export default function LeadsPage() {
                   onChange={e => setFormCourse(e.target.value)}
                   required
                   disabled={!formProgram}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500 disabled:opacity-50"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none disabled:opacity-50"
                 >
                   <option value="" className="bg-zinc-950">Select Course</option>
                   {filteredCourses.map(c => (
@@ -513,13 +514,13 @@ export default function LeadsPage() {
                 </select>
               </div>
 
-              <button
+              <Button
                 type="submit"
                 disabled={actionLoading}
                 className="col-span-2 mt-2 w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold text-white transition-colors"
               >
                 {actionLoading ? 'Creating Prospect...' : 'Register Enquiry'}
-              </button>
+              </Button>
             </form>
           </div>
         </div>
@@ -527,11 +528,11 @@ export default function LeadsPage() {
 
       {/* Modal: Assign counsellor */}
       {isAssignOpen && activeLead && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
           <div className="w-full max-w-sm glass-panel p-6 rounded-2xl space-y-4 relative animate-fade-in">
-            <button onClick={() => setIsAssignOpen(false)} className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400">
+            <Button onClick={() => setIsAssignOpen(false)} className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400">
               <X className="h-4.5 w-4.5" />
-            </button>
+            </Button>
 
             <div>
               <h2 className="text-sm font-bold text-white">Assign CRM Counsellor</h2>
@@ -544,7 +545,7 @@ export default function LeadsPage() {
                 <select
                   value={assignCounsellorId}
                   onChange={e => setAssignCounsellorId(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none"
                 >
                   <option value="" className="bg-zinc-950">Unassigned (None)</option>
                   {counsellors.map(c => (
@@ -554,19 +555,19 @@ export default function LeadsPage() {
               </div>
 
               <div className="flex gap-2 pt-2">
-                <button
+                <Button
                   onClick={() => setIsAssignOpen(false)}
-                  className="flex-1 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:bg-zinc-800 text-center font-medium"
+                  className="flex-1 py-2 rounded-lg glass-button text-zinc-400 text-center font-medium"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={handleAssignCounsellor}
                   disabled={actionLoading}
                   className="flex-1 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-lg shadow-emerald-500/10"
                 >
                   {actionLoading ? 'Saving...' : 'Assign Staff'}
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -575,11 +576,11 @@ export default function LeadsPage() {
 
       {/* Modal: Update status */}
       {isStatusOpen && activeLead && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
           <div className="w-full max-w-sm glass-panel p-6 rounded-2xl space-y-4 relative">
-            <button onClick={() => setIsStatusOpen(false)} className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400">
+            <Button onClick={() => setIsStatusOpen(false)} className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400">
               <X className="h-4.5 w-4.5" />
-            </button>
+            </Button>
 
             <div>
               <h2 className="text-sm font-bold text-white">Update Lead Status</h2>
@@ -589,35 +590,35 @@ export default function LeadsPage() {
             <div className="space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-1.5">
                 {statusesList.map(s => (
-                  <button
+                  <Button
                     key={s}
                     onClick={() => setActiveStatus(s)}
                     className={cn(
                       "p-2 rounded-lg text-left border text-[10px] uppercase font-bold transition-all",
                       activeStatus === s
                         ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 animate-pulse"
-                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:bg-zinc-800"
+                        : "glass-inner-card text-zinc-400"
                     )}
                   >
                     {s.replace('_', ' ')}
-                  </button>
+                  </Button>
                 ))}
               </div>
 
               <div className="flex gap-2 pt-2">
-                <button
+                <Button
                   onClick={() => setIsStatusOpen(false)}
-                  className="flex-1 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:bg-zinc-800 text-center font-medium"
+                  className="flex-1 py-2 rounded-lg glass-button text-zinc-400 text-center font-medium"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={handleUpdateStatus}
                   disabled={actionLoading}
                   className="flex-1 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-lg shadow-emerald-500/10"
                 >
                   {actionLoading ? 'Saving...' : 'Save Status'}
-                </button>
+                </Button>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { getClientSession, UserSession } from '@/lib/auth-session';
 import { formatDate } from '@/lib/utils';
 import {
@@ -134,7 +135,7 @@ export default function ReportsPage() {
                 value={reportTitle}
                 onChange={e => setReportTitle(e.target.value)}
                 required
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 outline-none text-white focus:border-emerald-500"
+                className="w-full glass-input rounded-lg p-2.5 outline-none text-white focus:border-emerald-500"
               />
             </div>
 
@@ -143,7 +144,7 @@ export default function ReportsPage() {
               <select
                 value={reportType}
                 onChange={e => setReportType(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 outline-none text-white font-medium"
+                className="w-full glass-input rounded-lg p-2.5 outline-none text-white font-medium"
               >
                 <option value="Admission">Overall Enrolment Rates</option>
                 <option value="Campus">Campus Comparisons</option>
@@ -157,7 +158,7 @@ export default function ReportsPage() {
               <select
                 value={reportFormat}
                 onChange={e => setReportFormat(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 outline-none text-white font-medium"
+                className="w-full glass-input rounded-lg p-2.5 outline-none text-white font-medium"
               >
                 <option value="CSV">Comma Separated Values (.csv)</option>
                 <option value="EXCEL">Microsoft Excel Sheet (.xlsx)</option>
@@ -165,14 +166,14 @@ export default function ReportsPage() {
               </select>
             </div>
 
-            <button
+            <Button
               type="submit"
               disabled={actionLoading || !reportTitle.trim()}
               className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-1 transition-colors"
             >
               <TrendingUp className="h-4 w-4" />
               <span>{actionLoading ? 'Compiling...' : 'Create Report'}</span>
-            </button>
+            </Button>
           </form>
         </div>
 
@@ -193,7 +194,7 @@ export default function ReportsPage() {
                 <div key={rep.id} className="glass-panel p-5 rounded-xl space-y-3 hover:border-emerald-500/20 transition-all flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex justify-between items-start">
-                      <div className="h-8 w-8 bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center shrink-0">
+                      <div className="h-8 w-8 glass-input rounded flex items-center justify-center shrink-0">
                         <FileText className="h-4.5 w-4.5 text-emerald-400" />
                       </div>
                       <span className="text-[9px] font-bold text-zinc-500 border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 rounded">
@@ -210,13 +211,13 @@ export default function ReportsPage() {
                   <div className="pt-2 border-t border-zinc-900 flex justify-between items-center text-[10px]">
                     <span className="text-zinc-500">{formatDate(rep.createdAt)}</span>
                     
-                    <button
+                    <Button
                       onClick={() => handleDownloadCsv(rep)}
                       className="flex items-center gap-1 text-emerald-400 font-bold hover:text-emerald-300 transition-colors uppercase tracking-wider text-[9px]"
                     >
                       <Download className="h-3.5 w-3.5" />
                       <span>Download</span>
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}

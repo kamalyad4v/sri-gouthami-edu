@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     // Ignore typescript errors during build to tolerate 'any' declarations in mockup structures
     ignoreBuildErrors: true,
   },
+  // @ts-ignore
   eslint: {
     // Ignore eslint rules during build
     ignoreDuringBuilds: true,

@@ -43,7 +43,7 @@ export default function CampusesPage() {
             <div key={camp.id} className="glass-panel p-6 rounded-xl space-y-4 hover:border-emerald-500/20 transition-all duration-300 relative overflow-hidden">
               <div className="flex justify-between items-start">
                 <div className="flex gap-3 items-center">
-                  <div className="h-10 w-10 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center">
+                  <div className="h-10 w-10 glass-input rounded-lg flex items-center justify-center">
                     <School className="h-5.5 w-5.5 text-emerald-400" />
                   </div>
                   <div>

@@ -17,14 +17,14 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
 
   if (isPublicPage) {
     return (
-      <main className="min-h-screen bg-zinc-950 text-foreground overflow-y-auto">
+      <main className="min-h-screen text-foreground overflow-y-auto">
         {children}
       </main>
     );
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-950">
+    <div className="flex h-screen overflow-hidden">
       {/* Sidebar Shell */}
       <DashboardNav />
 
@@ -34,7 +34,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         <MainHeader />
 
         {/* Content Box */}
-        <main className="flex-1 overflow-y-auto bg-zinc-950/20">
+        <main className="flex-1 overflow-y-auto">
           {children}
         </main>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { getClientSession, setClientSession, UserSession } from '@/lib/auth-session';
 import { Role } from '@/lib/mock-db';
 import { Bell, Search, Sparkles, User, ChevronDown, Check, Eye } from 'lucide-react';
@@ -101,9 +102,9 @@ export default function MainHeader() {
   if (!session) return null;
 
   return (
-    <header className="h-16 border-b border-zinc-900 bg-zinc-950/40 backdrop-blur-xl px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
+    <header className="h-16 glass-header px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
       {/* Search Console */}
-      <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-zinc-900/60 border border-zinc-800 text-zinc-400 w-80">
+      <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-lg glass-input text-zinc-400 w-80">
         <Search className="h-3.5 w-3.5 text-zinc-500" />
         <span className="text-[10px] text-zinc-500 font-medium">Search anything inside Gowthami Console...</span>
       </div>
@@ -111,30 +112,30 @@ export default function MainHeader() {
       <div className="flex items-center gap-4 ml-auto">
         {/* Notifications Tray */}
         <div className="relative">
-          <button
+          <Button
             onClick={() => {
               setNotifDropdownOpen(!notifDropdownOpen);
               setRoleDropdownOpen(false);
             }}
-            className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200 relative transition-colors"
+            className="p-2 rounded-lg glass-button text-zinc-400 hover:text-zinc-200 relative transition-colors"
           >
             <Bell className="h-4 w-4" />
             {unreadCount > 0 && (
               <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             )}
-          </button>
+          </Button>
 
           {notifDropdownOpen && (
-            <div className="absolute right-0 mt-2.5 w-80 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl z-50">
-              <div className="px-3 py-2 border-b border-zinc-900 mb-1 flex items-center justify-between">
+            <div className="absolute right-0 mt-2.5 w-80 rounded-xl glass-dropdown p-2 z-50">
+              <div className="px-3 py-2 border-b border-zinc-900/40 mb-1 flex items-center justify-between">
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Activity Notifications</span>
                 {unreadCount > 0 && (
-                  <button
+                  <Button
                     onClick={handleMarkAllRead}
                     className="text-[9px] font-bold text-emerald-400 hover:text-emerald-300 uppercase"
                   >
                     Mark all read
-                  </button>
+                  </Button>
                 )}
               </div>
 
@@ -143,7 +144,7 @@ export default function MainHeader() {
                   <div className="p-6 text-center text-[11px] text-zinc-600">No new alerts.</div>
                 ) : (
                   notifications.map(n => (
-                    <button
+                    <Button
                       key={n.id}
                       onClick={() => handleMarkSingleRead(n.id)}
                       className={cn(
@@ -158,7 +159,7 @@ export default function MainHeader() {
                         {!n.isRead && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />}
                       </div>
                       <p className="text-[10px] text-zinc-500 leading-relaxed mt-0.5">{n.message}</p>
-                    </button>
+                    </Button>
                   ))
                 )}
               </div>
@@ -168,7 +169,7 @@ export default function MainHeader() {
 
         {/* Dynamic Simulation switcher */}
         <div className="relative">
-          <button
+          <Button
             onClick={() => {
               setRoleDropdownOpen(!roleDropdownOpen);
               setNotifDropdownOpen(false);
@@ -178,16 +179,16 @@ export default function MainHeader() {
             <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
             <span>Role Desk: {rolesList.find(r => r.role === session.role)?.name || session.role}</span>
             <ChevronDown className="h-3.5 w-3.5 text-emerald-400/80" />
-          </button>
+          </Button>
 
           {roleDropdownOpen && (
-            <div className="absolute right-0 mt-2.5 w-72 rounded-xl border border-zinc-800 bg-zinc-950 p-2 shadow-2xl z-50">
-              <div className="px-3 py-1.5 border-b border-zinc-900 mb-1">
+            <div className="absolute right-0 mt-2.5 w-72 rounded-xl glass-dropdown p-2 z-50">
+              <div className="px-3 py-1.5 border-b border-zinc-900/40 mb-1">
                 <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Role Simulation Desk</span>
               </div>
               <div className="space-y-0.5">
                 {rolesList.map(r => (
-                  <button
+                  <Button
                     key={r.role}
                     onClick={() => handleRoleChange(r.role)}
                     className={cn(
@@ -202,7 +203,7 @@ export default function MainHeader() {
                       {session.role === r.role && <Check className="h-3.5 w-3.5 text-emerald-400" />}
                     </div>
                     <span className="text-[10px] text-zinc-500">{r.desc}</span>
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>

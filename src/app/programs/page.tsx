@@ -50,7 +50,7 @@ export default function ProgramsPage() {
               <div key={prog.id} className="glass-panel p-5 rounded-xl space-y-4 hover:border-emerald-500/20 transition-all duration-300">
                 <div className="flex justify-between items-start">
                   <div className="flex gap-2.5 items-center">
-                    <div className="h-9 w-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center">
+                    <div className="h-9 w-9 glass-input rounded-lg flex items-center justify-center">
                       <GraduationCap className="h-5 w-5 text-emerald-400" />
                     </div>
                     <div>

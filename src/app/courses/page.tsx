@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { formatCurrency } from '@/lib/utils';
 import { CourseRecommendation } from '@/lib/ai-service';
 import {
@@ -91,8 +92,8 @@ export default function CoursesPage() {
         </div>
 
         {/* Tab switch buttons */}
-        <div className="flex bg-zinc-900 border border-zinc-800 p-1 rounded-lg self-start sm:self-auto text-xs font-semibold">
-          <button
+        <div className="flex glass-input p-1 rounded-lg self-start sm:self-auto text-xs font-semibold">
+          <Button
             onClick={() => setActiveTab('CATALOG')}
             className={cn(
               "px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5",
@@ -101,8 +102,8 @@ export default function CoursesPage() {
           >
             <BookOpen className="h-3.5 w-3.5" />
             <span>Programs Catalog</span>
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setActiveTab('AI_ADVISOR')}
             className={cn(
               "px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5",
@@ -111,7 +112,7 @@ export default function CoursesPage() {
           >
             <Sparkles className="h-3.5 w-3.5 animate-pulse" />
             <span>AI Admission Advisor</span>
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -127,7 +128,7 @@ export default function CoursesPage() {
                   <div key={course.id} className="glass-panel p-6 rounded-xl space-y-4 hover:border-emerald-500/25 transition-all">
                     <div className="flex justify-between items-start">
                       <div className="flex gap-3 items-center">
-                        <div className="h-9 w-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center">
+                        <div className="h-9 w-9 glass-input rounded-lg flex items-center justify-center">
                           <GraduationCap className="h-5 w-5 text-emerald-400" />
                         </div>
                         <div>
@@ -174,7 +175,7 @@ export default function CoursesPage() {
                       placeholder="e.g. Scored 9.2 GPA in SSC 10th class standard board exams. Interested in math-intensive logic streams..."
                       value={academicBackground}
                       onChange={e => setAcademicBackground(e.target.value)}
-                      className="w-full h-20 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
+                      className="w-full h-20 glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
                       required
                     />
                   </div>
@@ -185,7 +186,7 @@ export default function CoursesPage() {
                       placeholder="e.g. Computer games, coding basic programs, assembling electronic kits, playing sports..."
                       value={interests}
                       onChange={e => setInterests(e.target.value)}
-                      className="w-full h-20 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
+                      className="w-full h-20 glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
                       required
                     />
                   </div>
@@ -196,12 +197,12 @@ export default function CoursesPage() {
                       placeholder="e.g. Seek a job in local railways or tech startup. Want to pursue higher university education in tech..."
                       value={careerGoals}
                       onChange={e => setCareerGoals(e.target.value)}
-                      className="w-full h-20 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
+                      className="w-full h-20 glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500 resize-none transition-colors"
                       required
                     />
                   </div>
 
-                  <button
+                  <Button
                     type="submit"
                     disabled={aiLoading}
                     className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10"
@@ -217,7 +218,7 @@ export default function CoursesPage() {
                         <span>Evaluate Course Suitability</span>
                       </>
                     )}
-                  </button>
+                  </Button>
                 </form>
               </div>
 
@@ -273,7 +274,7 @@ export default function CoursesPage() {
                               <h5 className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider mb-2">Suitable Career Pathways</h5>
                               <div className="flex flex-wrap gap-1.5">
                                 {rec.careerPath.map(car => (
-                                  <span key={car} className="text-[10px] text-zinc-300 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
+                                  <span key={car} className="text-[10px] text-zinc-300 glass-input px-2 py-0.5 rounded">
                                     {car}
                                   </span>
                                 ))}

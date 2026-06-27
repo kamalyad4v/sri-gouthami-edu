@@ -109,7 +109,7 @@ export default function ApplicationsPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6 text-white">
       {/* Title */}
-      <div className="pb-4 border-b border-zinc-900 flex justify-between items-center">
+      <div className="pb-4 border-b border-zinc-900/40 flex justify-between items-center">
         <div>
           <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
             Candidates Application Desk <span className="text-xs text-zinc-500">Module 3</span>
@@ -120,9 +120,9 @@ export default function ApplicationsPage() {
 
       {/* Filter panel */}
       {session?.role !== 'STUDENT' && session?.role !== 'PARENT' && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl bg-zinc-950 border border-zinc-900">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl glass-panel">
           {/* Search */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 focus-within:border-emerald-500/50 transition-colors">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
             <Search className="h-4 w-4 text-zinc-500" />
             <input
               type="text"
@@ -134,7 +134,7 @@ export default function ApplicationsPage() {
           </div>
 
           {/* Campus Filter */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
             <Filter className="h-4 w-4 text-zinc-500" />
             <select
               value={selectedCampus}
@@ -149,7 +149,7 @@ export default function ApplicationsPage() {
           </div>
 
           {/* Status Filter */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg glass-input text-zinc-400">
             <Filter className="h-4 w-4 text-zinc-500" />
             <select
               value={selectedStatus}
@@ -181,7 +181,7 @@ export default function ApplicationsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-zinc-900 bg-zinc-900/40 text-zinc-400 font-semibold uppercase tracking-wider">
+                <tr className="border-b border-zinc-900/40 glass-inner-card text-zinc-400 font-semibold uppercase tracking-wider">
                   <th className="p-4">Application ID</th>
                   <th className="p-4">Student Name</th>
                   <th className="p-4">Campus & Degree Program</th>
@@ -217,7 +217,7 @@ export default function ApplicationsPage() {
                       {/* Documents */}
                       <td className="p-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-16 bg-zinc-900 h-2 rounded-full overflow-hidden border border-zinc-800">
+                          <div className="w-16 glass-inner-card h-2 rounded-full overflow-hidden">
                             <div
                               className="bg-emerald-500 h-full rounded-full"
                               style={{ width: `${totalDocs > 0 ? (verifiedDocs / totalDocs) * 100 : 0}%` }}
@@ -243,7 +243,7 @@ export default function ApplicationsPage() {
                       <td className="p-4 text-right">
                         <Link
                           href={`/applications/${app.id}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg glass-button hover:text-white transition-colors"
                         >
                           <Eye className="h-3.5 w-3.5" />
                           <span>Review</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { useEffect, useState } from 'react';
 import { getClientSession, UserSession } from '@/lib/auth-session';
 import { formatDate } from '@/lib/utils';
@@ -243,7 +244,7 @@ export default function ApplicationDetailPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/applications"
-            className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg glass-input text-zinc-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -259,23 +260,23 @@ export default function ApplicationDetailPage() {
         </div>
 
         {isStaff && app.status === 'APPLICATION_SUBMITTED' && (
-          <button
+          <Button
             onClick={handleFastTrackVerify}
             disabled={actionLoading}
             className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md shadow-indigo-500/10"
           >
             Mark Credential Verified
-          </button>
+          </Button>
         )}
 
         {isStaff && app.status === 'VERIFIED' && (
-          <button
+          <Button
             onClick={handleEnrolAdmit}
             disabled={actionLoading}
             className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-md shadow-emerald-500/10"
           >
             Approve & Enrol Student
-          </button>
+          </Button>
         )}
       </div>
 
@@ -296,7 +297,7 @@ export default function ApplicationDetailPage() {
                 app.documents.map((doc: any) => (
                   <div
                     key={doc.id}
-                    className="p-4 rounded-xl bg-zinc-900 border border-zinc-800 flex justify-between items-center text-xs relative overflow-hidden"
+                    className="p-4 rounded-xl glass-input flex justify-between items-center text-xs relative overflow-hidden"
                   >
                     <div className="space-y-1.5">
                       <h4 className="font-bold text-zinc-200">{doc.name}</h4>
@@ -328,7 +329,7 @@ export default function ApplicationDetailPage() {
                       </a>
 
                       {isStaff && (
-                        <button
+                        <Button
                           onClick={() => {
                             setSelectedDoc(doc);
                             setRejectionReason(doc.rejectionReason || '');
@@ -336,7 +337,7 @@ export default function ApplicationDetailPage() {
                           className="px-2.5 py-2 rounded-lg bg-emerald-600/10 hover:bg-emerald-600/20 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase transition-all"
                         >
                           Verify Drawer
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -359,7 +360,7 @@ export default function ApplicationDetailPage() {
                   <select
                     value={uploadDocName}
                     onChange={e => setUploadDocName(e.target.value)}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                    className="w-full glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500"
                   >
                     <option value="Aadhaar Card" className="bg-zinc-950">Aadhaar Card</option>
                     <option value="SSC Memo (10th)" className="bg-zinc-950">SSC Memo (10th)</option>
@@ -375,18 +376,18 @@ export default function ApplicationDetailPage() {
                     type="text"
                     value={uploadUrl}
                     onChange={e => setUploadUrl(e.target.value)}
-                    className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                    className="w-full glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500"
                   />
                 </div>
 
-                <button
+                <Button
                   type="submit"
                   disabled={actionLoading}
                   className="col-span-2 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <UploadCloud className="h-4 w-4" />
                   <span>{actionLoading ? 'Uploading...' : 'Upload Document'}</span>
-                </button>
+                </Button>
               </form>
             </div>
           )}
@@ -402,14 +403,14 @@ export default function ApplicationDetailPage() {
               </div>
 
               {isStaff && (
-                <button
+                <Button
                   onClick={handleRunAiEvaluation}
                   disabled={aiScanning}
-                  className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-[10px] font-bold text-emerald-400 uppercase transition-colors flex items-center gap-1"
+                  className="px-2.5 py-1.5 rounded-lg glass-input hover:bg-zinc-800 text-[10px] font-bold text-emerald-400 uppercase transition-colors flex items-center gap-1"
                 >
                   {aiScanning && <Loader2 className="h-3 w-3 animate-spin" />}
                   <span>Scan Application</span>
-                </button>
+                </Button>
               )}
             </div>
 
@@ -430,7 +431,7 @@ export default function ApplicationDetailPage() {
                 {/* Overall summary */}
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Scan Summary</span>
-                  <p className="text-zinc-300 leading-relaxed font-medium bg-zinc-900 border border-zinc-800 p-3 rounded-lg">
+                  <p className="text-zinc-300 leading-relaxed font-medium glass-input p-3 rounded-lg">
                     {aiReport?.summary || app.aiSummary}
                   </p>
                 </div>
@@ -481,14 +482,14 @@ export default function ApplicationDetailPage() {
                       <Award className="h-4 w-4 shrink-0" />
                       <span>Merit Scholarship Slot Eligible!</span>
                     </div>
-                    <button
+                    <Button
                       onClick={handleApplyScholarship}
                       disabled={actionLoading}
                       className="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-[10.5px] uppercase rounded-lg transition-colors flex items-center justify-center gap-1 shadow-md shadow-emerald-500/10"
                     >
                       <Sparkles className="h-3.5 w-3.5" />
                       <span>Apply Scholarship Waiver</span>
-                    </button>
+                    </Button>
                   </div>
                 )}
               </div>
@@ -499,9 +500,9 @@ export default function ApplicationDetailPage() {
 
       {/* Modal: Document Approve / Reject Drawer */}
       {selectedDoc && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
           <div className="w-full max-w-sm glass-panel p-6 rounded-2xl space-y-4 relative">
-            <button
+            <Button
               onClick={() => {
                 setSelectedDoc(null);
                 setRejectionReason('');
@@ -509,7 +510,7 @@ export default function ApplicationDetailPage() {
               className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400"
             >
               <X className="h-4.5 w-4.5" />
-            </button>
+            </Button>
 
             <div>
               <h2 className="text-sm font-bold text-white">Verify Certificate File</h2>
@@ -528,25 +529,25 @@ export default function ApplicationDetailPage() {
                   placeholder="e.g. Blurry scan copy, please re-upload"
                   value={rejectionReason}
                   onChange={e => setRejectionReason(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div className="flex gap-2 pt-2">
-                <button
+                <Button
                   onClick={() => handleVerifyDoc(selectedDoc.id, 'REJECTED')}
                   disabled={actionLoading || (rejectionReason.trim() === '')}
                   className="flex-grow py-2 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 border border-rose-500/20 font-medium disabled:opacity-50"
                 >
                   Reject File
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleVerifyDoc(selectedDoc.id, 'APPROVED')}
                   disabled={actionLoading}
                   className="flex-grow py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-md shadow-emerald-500/10"
                 >
                   Approve File
-                </button>
+                </Button>
               </div>
             </div>
           </div>

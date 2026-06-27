@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { School, Sparkles, AlertCircle, ArrowRight, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 import { Role } from '@/lib/mock-db';
@@ -51,7 +52,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-6 text-white relative">
+    <div className="min-h-screen flex items-center justify-center p-6 text-white relative">
       {/* Glow Effects */}
       <div className="absolute top-0 right-1/4 h-[400px] w-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 h-[400px] w-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
@@ -91,7 +92,7 @@ export default function SignInPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="e.g. counsellor.rama@gowthami.edu"
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none focus:border-emerald-500/50 transition-colors"
+                  className="w-full glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
                 />
               </div>
 
@@ -102,22 +103,22 @@ export default function SignInPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none focus:border-emerald-500/50 transition-colors"
+                  className="w-full glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
                 />
               </div>
 
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
                 className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-emerald-500/10"
               >
                 <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
-              </button>
+              </Button>
             </form>
           </div>
 
-          <div className="pt-4 border-t border-zinc-900 flex justify-between items-center text-[10px] text-zinc-500">
+          <div className="pt-4 border-t border-zinc-900/40 flex justify-between items-center text-[10px] text-zinc-500">
             <Link href="/" className="hover:text-zinc-400 font-medium">← Back to Home</Link>
             <span>Sandbox Session v1.0</span>
           </div>
@@ -126,7 +127,7 @@ export default function SignInPage() {
         {/* Right Card: Quick simulation selections */}
         <div className="glass-panel p-8 rounded-2xl flex flex-col justify-between relative z-10 border-amber-500/15">
           <div className="space-y-4">
-            <div className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs border-b border-zinc-900 pb-3">
+            <div className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs border-b border-zinc-900/40 pb-3">
               <ShieldAlert className="h-4.5 w-4.5" />
               <span>Developer Quick Simulation logins</span>
             </div>
@@ -136,45 +137,45 @@ export default function SignInPage() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-              <button
+              <Button
                 onClick={() => handleQuickSimulation('SUPER_ADMIN')}
-                className="p-3 text-left rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/80 transition-colors flex flex-col gap-0.5"
+                className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
               >
                 <span className="text-xs font-semibold text-emerald-400">Super Admin</span>
                 <span className="text-[9px] text-zinc-500">Director View (Sri Devi)</span>
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={() => handleQuickSimulation('COUNSELLOR')}
-                className="p-3 text-left rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/80 transition-colors flex flex-col gap-0.5"
+                className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
               >
                 <span className="text-xs font-semibold text-blue-400">Counsellor Desk</span>
                 <span className="text-[9px] text-zinc-500">CRM & remarks (Rama Rao)</span>
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={() => handleQuickSimulation('FACULTY')}
-                className="p-3 text-left rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/80 transition-colors flex flex-col gap-0.5"
+                className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
               >
                 <span className="text-xs font-semibold text-amber-400">Faculty Staff</span>
                 <span className="text-[9px] text-zinc-500">Campuses & approvals</span>
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={() => handleQuickSimulation('STUDENT')}
-                className="p-3 text-left rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/80 transition-colors flex flex-col gap-0.5"
+                className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
               >
                 <span className="text-xs font-semibold text-purple-400">Student Profile</span>
                 <span className="text-[9px] text-zinc-500">File uploads (Aditya Varma)</span>
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={() => handleQuickSimulation('PARENT')}
-                className="p-3 text-left rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800/80 transition-colors flex flex-col gap-0.5 sm:col-span-2"
+                className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5 sm:col-span-2"
               >
                 <span className="text-xs font-semibold text-rose-400">Parent Portal</span>
                 <span className="text-[9px] text-zinc-500">Ward progression tracker (Srinivas Varma)</span>
-              </button>
+              </Button>
             </div>
           </div>
 

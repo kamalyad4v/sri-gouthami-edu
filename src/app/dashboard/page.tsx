@@ -105,15 +105,15 @@ export default function DashboardPage() {
   if (loading || !session) {
     return (
       <div className="space-y-6 animate-pulse p-6">
-        <div className="h-8 bg-zinc-900 rounded w-1/4" />
+        <div className="h-8 glass-panel rounded w-1/4" />
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-28 bg-zinc-900 rounded-xl" />
+            <div key={i} className="h-28 glass-panel rounded-xl" />
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="h-80 bg-zinc-900 rounded-xl" />
-          <div className="h-80 bg-zinc-900 rounded-xl" />
+          <div className="h-80 glass-panel rounded-xl" />
+          <div className="h-80 glass-panel rounded-xl" />
         </div>
       </div>
     );
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                 +12% from last week
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
               <Users className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                 Requires verification
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
               <Clock className="h-5 w-5 text-amber-400" />
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function DashboardPage() {
                 Target achievement 82%
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
               <Award className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function DashboardPage() {
                 From current admissions
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
               <TrendingUp className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
@@ -301,14 +301,14 @@ export default function DashboardPage() {
             </div>
             <div className="space-y-3.5">
               {leads.slice(0, 4).map(lead => (
-                <div key={lead.id} className="flex items-center justify-between p-3 rounded-lg bg-zinc-900/40 border border-zinc-800/80">
+                <div key={lead.id} className="flex items-center justify-between p-3 rounded-lg glass-inner-card">
                   <div>
                     <h4 className="font-semibold text-xs text-zinc-100">{lead.studentName}</h4>
                     <p className="text-[10px] text-zinc-500 mt-0.5">
                       Applied for {lead.courseId === 'crs-5' ? 'B.Sc CS' : 'MPC'} | Source: {lead.leadSource}
                     </p>
                   </div>
-                  <span className="text-[10px] font-bold text-zinc-400 bg-zinc-800 border border-zinc-700 px-2 py-0.5 rounded-full uppercase">
+                  <span className="text-[10px] font-bold text-zinc-400 glass-inner-card px-2 py-0.5 rounded-full uppercase">
                     {lead.status.replace('_', ' ')}
                   </span>
                 </div>
@@ -320,15 +320,15 @@ export default function DashboardPage() {
           <div className="glass-panel p-5 rounded-xl space-y-4">
             <h3 className="text-sm font-semibold text-white">Quick Tasks Desk</h3>
             <div className="space-y-2">
-              <Link href="/leads" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 transition-colors text-xs font-medium text-zinc-200">
+              <Link href="/leads" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
                 <PlusCircle className="h-4.5 w-4.5 text-emerald-400" />
                 <span>Register a New Enquiry</span>
               </Link>
-              <Link href="/applications" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 transition-colors text-xs font-medium text-zinc-200">
+              <Link href="/applications" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
                 <FileCheck className="h-4.5 w-4.5 text-blue-400" />
                 <span>Verify Pending Certificates</span>
               </Link>
-              <Link href="/reports" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 transition-colors text-xs font-medium text-zinc-200">
+              <Link href="/reports" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
                 <FileText className="h-4.5 w-4.5 text-purple-400" />
                 <span>Compile Admissions Report</span>
               </Link>
@@ -375,7 +375,7 @@ export default function DashboardPage() {
               { title: 'Document Upload', desc: 'Aadhaar, memos uploaded', date: 'June 02, 2026', done: true },
               { title: 'Final Verification', desc: 'Counsellor review', date: 'Pending', done: false },
             ].map((step, idx) => (
-              <div key={idx} className="relative flex flex-col p-4 rounded-xl bg-zinc-900 border border-zinc-800">
+              <div key={idx} className="relative flex flex-col p-4 rounded-xl glass-inner-card">
                 <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${step.done ? 'text-emerald-400' : 'text-zinc-500'}`}>
                   {step.done ? '✓ Step Complete' : '○ Pending Review'}
                 </span>
@@ -400,7 +400,7 @@ export default function DashboardPage() {
                 { name: 'Intermediate Memo (12th)', status: 'PENDING' },
                 { name: 'Transfer Certificate', status: 'PENDING' },
               ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-900/50 border border-zinc-800/80 text-xs">
+                <div key={i} className="flex items-center justify-between p-3 rounded-lg glass-inner-card text-xs">
                   <span className="font-semibold text-zinc-200">{doc.name}</span>
                   <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
                     doc.status === 'APPROVED' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'
@@ -424,7 +424,7 @@ export default function DashboardPage() {
                 Take our AI-powered course recommender! Provide your previous subject streams, goals, and interests to receive targeted options.
               </p>
             </div>
-            <Link href="/courses" className="mt-4 w-full py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-center text-xs font-semibold text-emerald-400 block transition-colors">
+            <Link href="/courses" className="mt-4 w-full py-2.5 rounded-lg glass-inner-card text-center text-xs font-semibold text-emerald-400 block transition-colors">
               Launch Recommender
             </Link>
           </div>
@@ -466,7 +466,7 @@ export default function DashboardPage() {
                 { name: 'Intermediate Memo (12th)', status: 'PENDING' },
                 { name: 'Transfer Certificate', status: 'PENDING' },
               ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-900/50 border border-zinc-800/80 text-xs">
+                <div key={i} className="flex items-center justify-between p-3 rounded-lg glass-inner-card text-xs">
                   <span className="font-semibold text-zinc-200">{doc.name}</span>
                   <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
                     doc.status === 'APPROVED' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'
@@ -481,14 +481,14 @@ export default function DashboardPage() {
           <div className="glass-panel p-5 rounded-xl space-y-3.5">
             <h3 className="text-sm font-semibold text-white">Payment Installments</h3>
             <div className="space-y-2">
-              <div className="p-3.5 rounded-lg bg-zinc-900 border border-zinc-800 flex justify-between items-center text-xs">
+              <div className="p-3.5 rounded-lg glass-inner-card flex justify-between items-center text-xs">
                 <div>
                   <p className="font-medium text-zinc-200">First Installment</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Paid via NetBanking</p>
                 </div>
                 <span className="text-emerald-400 font-bold">₹15,000</span>
               </div>
-              <div className="p-3.5 rounded-lg bg-zinc-900 border border-zinc-800 flex justify-between items-center text-xs">
+              <div className="p-3.5 rounded-lg glass-inner-card flex justify-between items-center text-xs">
                 <div>
                   <p className="font-medium text-zinc-200">Pending Tuition Due</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Due on Admission Approval</p>
@@ -512,7 +512,7 @@ export default function DashboardPage() {
               <span className="text-zinc-400 text-xs font-medium font-semibold">Active Campuses</span>
               <h2 className="text-2xl font-bold mt-1 text-white">4</h2>
             </div>
-            <div className="h-10 w-10 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
               <School className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
@@ -521,7 +521,7 @@ export default function DashboardPage() {
               <span className="text-zinc-400 text-xs font-medium font-semibold">Affiliated Programs</span>
               <h2 className="text-2xl font-bold mt-1 text-white">8</h2>
             </div>
-            <div className="h-10 w-10 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
               <FolderOpen className="h-5 w-5 text-emerald-400" />
             </div>
           </div>
@@ -530,7 +530,7 @@ export default function DashboardPage() {
               <span className="text-zinc-400 text-xs font-medium font-semibold">Verification Action Needed</span>
               <h2 className="text-2xl font-bold mt-1 text-amber-400">2</h2>
             </div>
-            <div className="h-10 w-10 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
               <AlertTriangle className="h-5 w-5 text-amber-400 animate-bounce" />
             </div>
           </div>
@@ -545,7 +545,7 @@ export default function DashboardPage() {
               { campus: 'Sri Gowthami School', program: 'Class 10 Board Program', seats: '120/150 filled', status: 'Optimal' },
               { campus: 'Sri Gowthami ITI', program: 'ITI Electrician', seats: '55/60 filled', status: 'Optimal' },
             ].map((item, idx) => (
-              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-lg bg-zinc-900/40 border border-zinc-800/80 gap-2">
+              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-lg glass-inner-card gap-2">
                 <div>
                   <h4 className="font-semibold text-xs text-zinc-100">{item.program}</h4>
                   <p className="text-[10px] text-zinc-500 mt-0.5">{item.campus}</p>
@@ -569,7 +569,7 @@ export default function DashboardPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Top Welcome Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-900">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-900/40">
         <div>
           <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
             Sri Gowthami Portal <span className="text-xs font-semibold px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 uppercase">Beta</span>
@@ -580,7 +580,7 @@ export default function DashboardPage() {
         </div>
         
         {/* Simple role summary banner */}
-        <div className="px-3.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">
+        <div className="px-3.5 py-1.5 rounded-lg glass-inner-card text-zinc-400 text-xs">
           Operating Mode: <span className="text-emerald-400 font-bold uppercase">{process.env.NEXT_PUBLIC_MOCK_ENV === 'true' ? 'Mock-Persistent SQLite-like JSON' : 'PostgreSQL Live'}</span>
         </div>
       </div>

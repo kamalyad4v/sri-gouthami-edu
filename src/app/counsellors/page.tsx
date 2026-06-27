@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getClientSession, UserSession } from '@/lib/auth-session';
 import { formatDate } from '@/lib/utils';
@@ -137,7 +138,7 @@ function CounsellorWorkspaceContent() {
               {assignedLeads.map(l => {
                 const isSelected = selectedLead?.id === l.id;
                 return (
-                  <button
+                  <Button
                     key={l.id}
                     onClick={() => selectLeadDetails(l.id)}
                     className={cn(
@@ -150,7 +151,7 @@ function CounsellorWorkspaceContent() {
                       <div className="text-[9px] text-zinc-500 truncate block">Mobile: {l.mobile}</div>
                     </div>
                     <ChevronRight className={cn("h-4 w-4 text-zinc-600 transition-transform", isSelected ? "text-emerald-400 translate-x-1" : "")} />
-                  </button>
+                  </Button>
                 );
               })}
             </div>
@@ -226,17 +227,17 @@ function CounsellorWorkspaceContent() {
                           placeholder="e.g. Spoke to applicant, requested details about scholarship timelines..."
                           value={newNote}
                           onChange={e => setNewNote(e.target.value)}
-                          className="w-full h-20 bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none focus:border-emerald-500/50 resize-none transition-colors"
+                          className="w-full h-20 glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none focus:border-emerald-500/50 resize-none transition-colors"
                         />
                       </div>
-                      <button
+                      <Button
                         type="submit"
                         disabled={actionLoading || !newNote.trim()}
                         className="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs text-white transition-colors flex items-center justify-center gap-1 shadow-md shadow-emerald-500/10"
                       >
                         <Send className="h-3.5 w-3.5" />
                         <span>{actionLoading ? 'Saving...' : 'Add Note'}</span>
-                      </button>
+                      </Button>
                     </form>
                   </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import { getClientSession, UserSession } from '@/lib/auth-session';
 import { Settings, ShieldAlert, RefreshCw, Trash2, CheckCircle } from 'lucide-react';
 
@@ -58,14 +59,14 @@ export default function SettingsPage() {
           <div className="space-y-3.5 text-xs">
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-zinc-500 uppercase">Operator Name</span>
-              <div className="p-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 font-semibold">
+              <div className="p-2.5 rounded-lg glass-input text-zinc-300 font-semibold">
                 {session.name}
               </div>
             </div>
 
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-zinc-500 uppercase">Active Logged Email</span>
-              <div className="p-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 font-medium">
+              <div className="p-2.5 rounded-lg glass-input text-zinc-300 font-medium">
                 {session.email}
               </div>
             </div>
@@ -84,14 +85,14 @@ export default function SettingsPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button
+            <Button
               onClick={handleResetDb}
               disabled={resetting}
               className="px-4 py-2.5 rounded-lg bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-lg shadow-rose-500/10"
             >
               <Trash2 className="h-4 w-4" />
               <span>{resetting ? 'Cleaning logs...' : 'Reset Sandbox Database'}</span>
-            </button>
+            </Button>
 
             {success && (
               <div className="flex items-center gap-1 text-xs text-emerald-400 font-semibold animate-pulse">
