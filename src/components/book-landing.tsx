@@ -10,6 +10,7 @@ import {
   WhyLeft, WhyRight,
   FooterLeft, FooterRight,
 } from "./book-pages";
+import { ParallaxGallery } from "./parallax-gallery";
 
 const SHEETS = [
   { id: "cover", Front: CoverFront, Back: HeroLeft },
@@ -137,81 +138,87 @@ export const BookLanding = () => {
   };
 
   return (
-    <div ref={wrapperRef} className="relative w-full" style={{ height: "650vh" }}>
-      <BookNavbar onApplyClick={handleApply} />
-      <ChapterIndicator scrollYProgress={scrollYProgress} />
-      <ScrollHint scrollYProgress={scrollYProgress} />
+    <div className="relative w-full bg-[#EFEBE0] overflow-x-hidden">
+      {/* 3D Book Scroll Track */}
+      <div ref={wrapperRef} className="relative w-full" style={{ height: "450vh" }}>
+        <BookNavbar onApplyClick={handleApply} />
+        <ChapterIndicator scrollYProgress={scrollYProgress} />
+        <ScrollHint scrollYProgress={scrollYProgress} />
 
-      <div className="sticky top-0 h-screen w-full overflow-hidden scene-vignette">
-        {/* Background Vignette Text Plates */}
-        <div className="absolute inset-0 pointer-events-none select-none">
-          <div className="absolute top-24 left-8 sm:left-14 hidden lg:block">
-            <div className="text-[10px] uppercase tracking-[0.34em] text-ink/45 font-sans font-bold">Sri Gowthami · Brochure</div>
-            <div className="font-serif italic text-ink/55 text-sm mt-1">An Interactive Presentation</div>
+        <div className="sticky top-0 h-screen w-full overflow-hidden scene-vignette">
+          {/* Background Vignette Text Plates */}
+          <div className="absolute inset-0 pointer-events-none select-none">
+            <div className="absolute top-24 left-8 sm:left-14 hidden lg:block">
+              <div className="text-[10px] uppercase tracking-[0.34em] text-ink/45 font-sans font-bold">Sri Gowthami · Brochure</div>
+              <div className="font-serif italic text-ink/55 text-sm mt-1">An Interactive Presentation</div>
+            </div>
+            <div className="absolute bottom-8 left-8 sm:left-14 hidden lg:block">
+              <div className="text-[10px] uppercase tracking-[0.34em] text-ink/40 font-sans font-bold">MMXXVI · Edition One</div>
+            </div>
           </div>
-          <div className="absolute bottom-8 left-8 sm:left-14 hidden lg:block">
-            <div className="text-[10px] uppercase tracking-[0.34em] text-ink/40 font-sans font-bold">MMXXVI · Edition One</div>
-          </div>
-        </div>
 
-        <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10">
-          <div
-            data-testid="book"
-            className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
-            style={{ perspective: "2800px" }}
-          >
-            {/* Book bottom shadow */}
-            <div className="absolute -bottom-4 left-[6%] right-[6%] h-6 rounded-[50%] blur-2xl bg-black/20 pointer-events-none" aria-hidden />
+          <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10">
+            <div
+              data-testid="book"
+              className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
+              style={{ perspective: "2800px" }}
+            >
+              {/* Book bottom shadow */}
+              <div className="absolute -bottom-4 left-[6%] right-[6%] h-6 rounded-[50%] blur-2xl bg-black/20 pointer-events-none" aria-hidden />
 
-            <div className="absolute inset-0 preserve-3d" style={{ transformStyle: "preserve-3d" }}>
-              {/* LEFT static base (Preambule) */}
-              <div
-                data-testid="book-left-page"
-                className="absolute top-0 left-0 w-1/2 h-full paper-texture overflow-hidden page-shadow-right"
-              >
-                <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-14">
-                  <div className="text-[10px] uppercase tracking-[0.28em] text-terracotta mb-4 font-sans font-bold">Introduction</div>
-                  <p className="font-serif italic text-ink/65 text-base sm:text-lg leading-relaxed max-w-xs">
-                    Open the brochure. Turn the pages.
-                    <br />
-                    Discover thirty years of educational distinction.
-                  </p>
+              <div className="absolute inset-0 preserve-3d" style={{ transformStyle: "preserve-3d" }}>
+                {/* LEFT static base (Preambule) */}
+                <div
+                  data-testid="book-left-page"
+                  className="absolute top-0 left-0 w-1/2 h-full paper-texture overflow-hidden page-shadow-right"
+                >
+                  <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-14">
+                    <div className="text-[10px] uppercase tracking-[0.28em] text-terracotta mb-4 font-sans font-bold">Introduction</div>
+                    <p className="font-serif italic text-ink/65 text-base sm:text-lg leading-relaxed max-w-xs">
+                      Open the brochure. Turn the pages.
+                      <br />
+                      Discover thirty years of educational distinction.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* RIGHT static base = footer right */}
-              <div
-                data-testid="book-right-base"
-                className="absolute top-0 right-0 w-1/2 h-full overflow-hidden"
-                style={{ zIndex: 0 }}
-              >
-                <FooterRight />
-              </div>
+                {/* RIGHT static base = footer right */}
+                <div
+                  data-testid="book-right-base"
+                  className="absolute top-0 right-0 w-1/2 h-full overflow-hidden"
+                  style={{ zIndex: 0 }}
+                >
+                  <FooterRight />
+                </div>
 
-              {/* Spine */}
-              <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-full book-spine pointer-events-none"
-                style={{ zIndex: 200 }}
-                aria-hidden
-              />
-
-              {/* Flipping sheets */}
-              {SHEETS.map((s, i) => (
-                <Sheet
-                  key={s.id}
-                  index={i}
-                  total={SHEETS.length}
-                  scrollYProgress={scrollYProgress}
-                  Front={s.Front}
-                  Back={s.Back}
+                {/* Spine */}
+                <div
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-full book-spine pointer-events-none"
+                  style={{ zIndex: 200 }}
+                  aria-hidden
                 />
-              ))}
 
-              <div className="absolute inset-0 rounded-[2px] ring-1 ring-black/[0.04] pointer-events-none" style={{ zIndex: 250 }} />
+                {/* Flipping sheets */}
+                {SHEETS.map((s, i) => (
+                  <Sheet
+                    key={s.id}
+                    index={i}
+                    total={SHEETS.length}
+                    scrollYProgress={scrollYProgress}
+                    Front={s.Front}
+                    Back={s.Back}
+                  />
+                ))}
+
+                <div className="absolute inset-0 rounded-[2px] ring-1 ring-black/[0.04] pointer-events-none" style={{ zIndex: 250 }} />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Parallax Gallery */}
+      <ParallaxGallery />
     </div>
   );
 };
