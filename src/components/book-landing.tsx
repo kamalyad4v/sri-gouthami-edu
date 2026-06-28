@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { 
+  motion, 
+  useTransform, 
+  useSpring, 
+  MotionValue, 
+  useMotionValue, 
+  animate 
+} from "framer-motion";
 import BookNavbar from "./book-navbar";
 import {
   CoverFront, HeroLeft, HeroRight,
@@ -21,7 +28,7 @@ const SHEETS = [
 ];
 
 const FLIP_START = 0.06;
-const FLIP_END = 0.96;
+const FLIP_END = 0.80;
 
 interface SheetProps {
   index: number;
@@ -76,7 +83,7 @@ const Sheet = ({ index, total, scrollYProgress, Front, Back }: SheetProps) => {
   );
 };
 
-const CHAPTERS = ["Cover", "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4", "Footer"];
+const CHAPTERS = ["Cover", "Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4", "Gallery", "Footer"];
 
 interface ChapterDotProps {
   scrollYProgress: MotionValue<number>;
@@ -124,17 +131,77 @@ const ScrollHint = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> 
 };
 
 export const BookLanding = () => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end end"],
-  });
+  // Use a virtual scroll value rather than real window scrollbar position
+  const scrollYProgress = useMotionValue(0);
+
+  // Wheel and Touch gesture handlers to update virtual progress and lock window scroll
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const sensitivity = 0.0006;
+      const current = scrollYProgress.get();
+      const next = Math.min(1, Math.max(0, current + e.deltaY * sensitivity));
+      scrollYProgress.set(next);
+    };
+
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchY;
+      touchStartY = touchY;
+
+      const sensitivity = 0.002;
+      const current = scrollYProgress.get();
+      const next = Math.min(1, Math.max(0, current + deltaY * sensitivity));
+      scrollYProgress.set(next);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [scrollYProgress]);
+
+  // Intercept anchor clicks in the navbar to animate virtual progress smoothly
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a");
+      if (!anchor) return;
+      
+      const href = anchor.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+
+      e.preventDefault();
+      const id = href.substring(1);
+      
+      let targetProgress = 0;
+      if (id === "programs") targetProgress = 0.42;
+      else if (id === "campuses") targetProgress = 0.90;
+      else if (id === "admissions") targetProgress = 0.58;
+      else if (id === "contact") targetProgress = 0.80;
+      else if (id === "cover") targetProgress = 0.0;
+
+      animate(scrollYProgress, targetProgress, { duration: 1.0, ease: "easeInOut" });
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
+  }, [scrollYProgress]);
 
   const handleApply = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
+    // Navigate straight to the admissions desk login
+    window.location.href = "/auth/sign-in";
   };
 
   // Fade out the 3D book when we reach the gallery scroll segment
@@ -142,86 +209,83 @@ export const BookLanding = () => {
   const bookPointerEvents = useTransform(scrollYProgress, (v) => v > 0.82 ? "none" : "auto");
 
   return (
-    <div className="relative w-full bg-[#EFEBE0] overflow-x-hidden">
-      {/* 3D Book & Parallax Gallery Scroll Track */}
-      <div ref={wrapperRef} className="relative w-full" style={{ height: "600vh" }}>
-        <BookNavbar onApplyClick={handleApply} />
-        <ChapterIndicator scrollYProgress={scrollYProgress} />
-        <ScrollHint scrollYProgress={scrollYProgress} />
+    <div className="relative w-full h-screen overflow-hidden bg-[#EFEBE0] select-none">
+      <BookNavbar onApplyClick={handleApply} />
+      <ChapterIndicator scrollYProgress={scrollYProgress} />
+      <ScrollHint scrollYProgress={scrollYProgress} />
 
-        <div className="sticky top-0 h-screen w-full overflow-hidden scene-vignette">
-          {/* Background Vignette Text Plates */}
-          <div className="absolute inset-0 pointer-events-none select-none z-10">
-            <div className="absolute top-24 left-8 sm:left-14 hidden lg:block">
-              <div className="text-[10px] uppercase tracking-[0.34em] text-ink/45 font-sans font-bold">Sri Gowthami · Brochure</div>
-              <div className="font-serif italic text-ink/55 text-sm mt-1">An Interactive Presentation</div>
-            </div>
-            <div className="absolute bottom-8 left-8 sm:left-14 hidden lg:block">
-              <div className="text-[10px] uppercase tracking-[0.34em] text-ink/40 font-sans font-bold">MMXXVI · Edition One</div>
-            </div>
+      <div className="w-full h-full scene-vignette relative">
+        {/* Background Vignette Text Plates */}
+        <div className="absolute inset-0 pointer-events-none select-none z-10">
+          <div className="absolute top-24 left-8 sm:left-14 hidden lg:block">
+            <div className="text-[10px] uppercase tracking-[0.34em] text-ink/45 font-sans font-bold">Sri Gowthami · Brochure</div>
+            <div className="font-serif italic text-ink/55 text-sm mt-1">An Interactive Presentation</div>
           </div>
-
-          <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10 z-10">
-            <motion.div
-              style={{ opacity: bookOpacity, pointerEvents: bookPointerEvents, perspective: "2800px" }}
-              data-testid="book"
-              className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
-            >
-              {/* Book bottom shadow */}
-              <div className="absolute -bottom-4 left-[6%] right-[6%] h-6 rounded-[50%] blur-2xl bg-black/20 pointer-events-none" aria-hidden />
-
-              <div className="absolute inset-0 preserve-3d" style={{ transformStyle: "preserve-3d" }}>
-                {/* LEFT static base (Preambule) */}
-                <div
-                  data-testid="book-left-page"
-                  className="absolute top-0 left-0 w-1/2 h-full paper-texture overflow-hidden page-shadow-right"
-                >
-                  <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-14">
-                    <div className="text-[10px] uppercase tracking-[0.28em] text-terracotta mb-4 font-sans font-bold">Introduction</div>
-                    <p className="font-serif italic text-ink/65 text-base sm:text-lg leading-relaxed max-w-xs">
-                      Open the brochure. Turn the pages.
-                      <br />
-                      Discover thirty years of educational distinction.
-                    </p>
-                  </div>
-                </div>
-
-                {/* RIGHT static base = footer right */}
-                <div
-                  data-testid="book-right-base"
-                  className="absolute top-0 right-0 w-1/2 h-full overflow-hidden"
-                  style={{ zIndex: 0 }}
-                >
-                  <FooterRight />
-                </div>
-
-                {/* Spine */}
-                <div
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-full book-spine pointer-events-none"
-                  style={{ zIndex: 200 }}
-                  aria-hidden
-                />
-
-                {/* Flipping sheets */}
-                {SHEETS.map((s, i) => (
-                  <Sheet
-                    key={s.id}
-                    index={i}
-                    total={SHEETS.length}
-                    scrollYProgress={scrollYProgress}
-                    Front={s.Front}
-                    Back={s.Back}
-                  />
-                ))}
-
-                <div className="absolute inset-0 rounded-[2px] ring-1 ring-black/[0.04] pointer-events-none" style={{ zIndex: 250 }} />
-              </div>
-            </motion.div>
+          <div className="absolute bottom-8 left-8 sm:left-14 hidden lg:block">
+            <div className="text-[10px] uppercase tracking-[0.34em] text-ink/40 font-sans font-bold">MMXXVI · Edition One</div>
           </div>
-
-          {/* Parallax Gallery is absolutely positioned inside the sticky viewport */}
-          <ParallaxGallery scrollYProgress={scrollYProgress} />
         </div>
+
+        <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10 z-10">
+          <motion.div
+            style={{ opacity: bookOpacity, pointerEvents: bookPointerEvents, perspective: "2800px" }}
+            data-testid="book"
+            className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
+          >
+            {/* Book bottom shadow */}
+            <div className="absolute -bottom-4 left-[6%] right-[6%] h-6 rounded-[50%] blur-2xl bg-black/20 pointer-events-none" aria-hidden />
+
+            <div className="absolute inset-0 preserve-3d" style={{ transformStyle: "preserve-3d" }}>
+              {/* LEFT static base (Preambule) */}
+              <div
+                data-testid="book-left-page"
+                className="absolute top-0 left-0 w-1/2 h-full paper-texture overflow-hidden page-shadow-right"
+              >
+                <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-14">
+                  <div className="text-[10px] uppercase tracking-[0.28em] text-terracotta mb-4 font-sans font-bold">Introduction</div>
+                  <p className="font-serif italic text-ink/65 text-base sm:text-lg leading-relaxed max-w-xs">
+                    Open the brochure. Turn the pages.
+                    <br />
+                    Discover thirty years of educational distinction.
+                  </p>
+                </div>
+              </div>
+
+              {/* RIGHT static base = footer right */}
+              <div
+                data-testid="book-right-base"
+                className="absolute top-0 right-0 w-1/2 h-full overflow-hidden"
+                style={{ zIndex: 0 }}
+              >
+                <FooterRight />
+              </div>
+
+              {/* Spine */}
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-full book-spine pointer-events-none"
+                style={{ zIndex: 200 }}
+                aria-hidden
+              />
+
+              {/* Flipping sheets */}
+              {SHEETS.map((s, i) => (
+                <Sheet
+                  key={s.id}
+                  index={i}
+                  total={SHEETS.length}
+                  scrollYProgress={scrollYProgress}
+                  Front={s.Front}
+                  Back={s.Back}
+                />
+              ))}
+
+              <div className="absolute inset-0 rounded-[2px] ring-1 ring-black/[0.04] pointer-events-none" style={{ zIndex: 250 }} />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Parallax Gallery is absolutely positioned inside the sticky viewport */}
+        <ParallaxGallery scrollYProgress={scrollYProgress} />
       </div>
     </div>
   );
