@@ -28,13 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${cormorant.variable} ${outfit.variable} antialiased`}>
-        {/* Animated gradient background for glassmorphism */}
-        <div className="glass-bg-gradient" aria-hidden="true">
-          <div className="glass-orb glass-orb-1" />
-          <div className="glass-orb glass-orb-2" />
-          <div className="glass-orb glass-orb-3" />
-          <div className="glass-orb glass-orb-4" />
-        </div>
         <div className="relative z-10">
           <LayoutWrapper>{children}</LayoutWrapper>
         </div>

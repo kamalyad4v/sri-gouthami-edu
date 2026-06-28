@@ -36,9 +36,9 @@ const Sheet = ({ index, total, scrollYProgress, Front, Back }: SheetProps) => {
   const end = start + segment;
 
   const rotateY = useTransform(scrollYProgress, [start, end], [0, -180], { clamp: true });
-  const smoothRotate = useSpring(rotateY, { stiffness: 140, damping: 26, mass: 0.4 });
-  const lift = useTransform(scrollYProgress, [start, (start + end) / 2, end], [0, 18, 0]);
-  const shadowOpacity = useTransform(scrollYProgress, [start, (start + end) / 2, end], [0, 0.35, 0]);
+  const smoothRotate = useSpring(rotateY, { stiffness: 85, damping: 24, mass: 0.6 });
+  const lift = useTransform(smoothRotate, [0, -90, -180], [0, 18, 0]);
+  const shadowOpacity = useTransform(smoothRotate, [0, -90, -180], [0, 0.35, 0]);
 
   return (
     <motion.div
