@@ -3,6 +3,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+import Link from "next/link";
+
 export interface BentoItem {
     title: string;
     description: string;
@@ -23,10 +25,11 @@ function BentoGrid({ items }: BentoGridProps) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 max-w-7xl mx-auto">
             {items.map((item, index) => (
-                <div
+                <Link
+                    href="/auth/sign-in"
                     key={index}
                     className={cn(
-                        "group relative p-5 rounded-2xl overflow-hidden transition-all duration-300",
+                        "group relative p-5 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer block",
                         "glass-panel border-zinc-900/40",
                         "hover:shadow-[0_8px_32px_rgba(16,185,129,0.1)] hover:border-emerald-500/30",
                         "hover:-translate-y-0.5 will-change-transform flex flex-col justify-between min-h-[180px]",
@@ -103,7 +106,7 @@ function BentoGrid({ items }: BentoGridProps) {
                                 : "opacity-0 group-hover:opacity-100"
                         } transition-opacity duration-300`}
                     />
-                </div>
+                </Link>
             ))}
         </div>
     );

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import { 
   School, 
   GraduationCap, 
@@ -34,7 +35,7 @@ export default function LandingPage() {
       location: 'Kakinada', 
       icon: School, 
       desc: 'Play school to Class 10 CBSE/State Board syllabus, focused on foundational learning.',
-      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80'
+      image: '/school.png'
     },
     { 
       name: 'Junior Colleges (10+2)', 
@@ -48,14 +49,14 @@ export default function LandingPage() {
       location: 'Amalapuram', 
       icon: Award, 
       desc: 'Undergraduate science & commerce degree courses including modern B.Sc CS and B.Com Computers.',
-      image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=80'
+      image: '/degree_college.png'
     },
     { 
       name: 'ITI & Technical Programs', 
       location: 'Visakhapatnam', 
       icon: Compass, 
       desc: 'Practical trade certifications in Electrician & Fitter engineering to prepare for immediate employment.',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80'
+      image: '/technical_institute.png'
     },
   ];
 
@@ -80,7 +81,8 @@ export default function LandingPage() {
       quote: "The transparency in fee tracking and document checklist updates is unmatched. Being able to track my son's verification status live on the parent dashboard saved me multiple trips to the campus.",
       rating: 5,
       badge: "Parent Portal User",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+      initials: "SV",
+      colorClass: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25"
     },
     {
       name: "Aditya Varma",
@@ -88,7 +90,8 @@ export default function LandingPage() {
       quote: "Sri Gowthami's integrated JEE coaching was crucial for my rank. The digital admissions desk and counselor guidance made selecting my MPC stream college branch simple and direct.",
       rating: 5,
       badge: "MPC Batch Alumni",
-      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+      initials: "AV",
+      colorClass: "bg-blue-500/10 text-blue-400 border-blue-500/25"
     },
     {
       name: "Prof. Krishna Rao",
@@ -96,7 +99,8 @@ export default function LandingPage() {
       quote: "Managing admissions enquiries across 4 distinct campuses used to be a logistical nightmare. The unified CRM console has streamlined student follow-ups and note logs down to minutes.",
       rating: 5,
       badge: "Faculty Staff User",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+      initials: "KR",
+      colorClass: "bg-teal-500/10 text-teal-400 border-teal-500/25"
     }
   ];
 
@@ -153,22 +157,20 @@ export default function LandingPage() {
           <div className="h-8 w-8 rounded-lg bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
             <School className="h-5 w-5 text-white" />
           </div>
-          <div>
+          <div className="flex flex-col">
             <span className="font-extrabold text-sm text-white uppercase tracking-wider block leading-none">Sri Gowthami</span>
-            <span className="text-[10px] text-zinc-500 font-medium">Educational Group</span>
+            <span className="text-[10px] text-zinc-500 font-medium block mt-1">Educational Group</span>
           </div>
         </div>
 
         {/* Desktop Navigation */}
-        <SpotlightNavbar
-          items={[
-            { label: "Our Colleges", href: "#colleges" },
-            { label: "Console Features", href: "#features" },
-            { label: "About Us", href: "#about" },
-            { label: "Why Choose Us", href: "#why-choose-us" },
-          ]}
-          className="hidden md:flex pt-0"
-        />
+        <nav className="hidden md:flex items-center gap-6 bg-zinc-950/45 border border-zinc-900/50 px-5 py-2.5 rounded-full backdrop-blur-sm relative z-20">
+          <a href="#colleges" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Colleges</a>
+          <a href="#features" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Features</a>
+          <a href="#about" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">About</a>
+          <a href="#why-choose-us" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Why Us</a>
+          <a href="#testimonials" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Reviews</a>
+        </nav>
 
         <div className="hidden md:flex items-center gap-3">
           <Link
@@ -196,6 +198,7 @@ export default function LandingPage() {
           <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-emerald-400">Console Features</a>
           <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-emerald-400">About Us</a>
           <a href="#why-choose-us" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-emerald-400">Why Choose Us</a>
+          <a href="#testimonials" onClick={() => setMobileMenuOpen(false)} className="text-sm font-medium hover:text-emerald-400">Reviews & Testimonials</a>
           <Link
             href="/auth/sign-in"
             onClick={() => setMobileMenuOpen(false)}
@@ -236,9 +239,10 @@ export default function LandingPage() {
             </Link>
             <Link
               href="/auth/sign-in"
-              className="px-6 py-3 rounded-lg glass-button text-zinc-300 font-semibold text-xs transition-all"
+              className="px-6 py-3 rounded-lg glass-button text-zinc-300 font-semibold text-xs transition-all animate-pulse"
+              style={{ animationDuration: '3s' }}
             >
-              Simulate Role logins
+              Try Demo Access
             </Link>
           </div>
         </section>
@@ -293,8 +297,7 @@ export default function LandingPage() {
             <div className="space-y-4">
               <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Who We Are</span>
               <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-snug">
-                Building Academic Foundations <br />
-                For Over Three Decades
+                Building Academic Foundations<br />For Over Three Decades
               </h2>
               <p className="text-xs text-zinc-400 leading-relaxed">
                 Sri Gowthami Educational Group has been a cornerstone of academic excellence in Coastal Andhra Pradesh. 
@@ -308,21 +311,21 @@ export default function LandingPage() {
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              <div className="glass-inner-card p-5 rounded-xl text-center space-y-1">
-                <span className="block text-2xl font-extrabold text-emerald-400">15k+</span>
-                <span className="text-[10px] text-zinc-400 font-semibold uppercase">Alumni Success</span>
+              <div className="glass-inner-card p-5 rounded-xl text-center flex flex-col justify-center gap-1">
+                <span className="text-2xl font-extrabold text-emerald-400 block leading-none">15k+</span>
+                <span className="text-[10px] text-zinc-400 font-semibold uppercase block leading-none">Alumni Success</span>
               </div>
-              <div className="glass-inner-card p-5 rounded-xl text-center space-y-1">
-                <span className="block text-2xl font-extrabold text-teal-400">4</span>
-                <span className="text-[10px] text-zinc-400 font-semibold uppercase">Regional Branches</span>
+              <div className="glass-inner-card p-5 rounded-xl text-center flex flex-col justify-center gap-1">
+                <span className="text-2xl font-extrabold text-teal-400 block leading-none">4</span>
+                <span className="text-[10px] text-zinc-400 font-semibold uppercase block leading-none">Regional Branches</span>
               </div>
-              <div className="glass-inner-card p-5 rounded-xl text-center space-y-1">
-                <span className="block text-2xl font-extrabold text-blue-400">98%</span>
-                <span className="text-[10px] text-zinc-400 font-semibold uppercase">Exam Pass Rate</span>
+              <div className="glass-inner-card p-5 rounded-xl text-center flex flex-col justify-center gap-1">
+                <span className="text-2xl font-extrabold text-blue-400 block leading-none">98%</span>
+                <span className="text-[10px] text-zinc-400 font-semibold uppercase block leading-none">Exam Pass Rate</span>
               </div>
-              <div className="glass-inner-card p-5 rounded-xl text-center space-y-1">
-                <span className="block text-2xl font-extrabold text-purple-400">30+</span>
-                <span className="text-[10px] text-zinc-400 font-semibold uppercase">Years Excellence</span>
+              <div className="glass-inner-card p-5 rounded-xl text-center flex flex-col justify-center gap-1">
+                <span className="text-2xl font-extrabold text-purple-400 block leading-none">30+</span>
+                <span className="text-[10px] text-zinc-400 font-semibold uppercase block leading-none">Years Excellence</span>
               </div>
             </div>
           </div>
@@ -379,12 +382,9 @@ export default function LandingPage() {
                 
                 {/* User Info */}
                 <div className="flex items-center gap-3 pt-4 border-t border-zinc-900/30">
-                  <img 
-                    src={test.avatar} 
-                    alt={test.name} 
-                    className="w-9 h-9 rounded-full object-cover border border-zinc-800"
-                    loading="lazy"
-                  />
+                  <div className={cn("w-9 h-9 rounded-full flex items-center justify-center border text-xs font-bold shrink-0 select-none", test.colorClass)}>
+                    {test.initials}
+                  </div>
                   <div className="flex-1 overflow-hidden">
                     <span className="font-bold text-xs text-white block truncate">{test.name}</span>
                     <span className="text-[10px] text-zinc-500 block truncate">{test.role}</span>
@@ -395,6 +395,36 @@ export default function LandingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Section 7: Final Call to Action */}
+        <section className="scroll-mt-24">
+          <div className="relative rounded-2xl overflow-hidden glass-panel border border-emerald-500/20 p-8 md:p-12 text-center space-y-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10 opacity-30" />
+            <div className="relative z-10 space-y-4 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-extrabold text-white tracking-tight">
+                Secure Your Academic Future Today
+              </h2>
+              <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed">
+                Admissions for the academic year 2026-27 are open across all school, college, and technical branches. Apply online or schedule an in-person campus tour.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+                <Link
+                  href="/auth/sign-in"
+                  className="px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20"
+                >
+                  <span>Apply Now for 2026-27</span>
+                  <ChevronRight className="h-4.5 w-4.5" />
+                </Link>
+                <a
+                  href="#about"
+                  className="px-6 py-3 rounded-lg glass-button text-zinc-300 font-semibold text-xs transition-all border border-zinc-800/40 hover:border-zinc-700"
+                >
+                  Schedule a Visit
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -449,7 +479,6 @@ export default function LandingPage() {
 
         <div className="max-w-7xl mx-auto px-6 text-center space-y-2">
           <p>© 2026 Sri Gowthami Group of Institutions. All rights reserved.</p>
-          <p className="text-[10px] text-zinc-500">Designed with Apple Dashboard & Linear SaaS philosophies.</p>
         </div>
       </footer>
     </div>
