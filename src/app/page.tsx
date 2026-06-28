@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { BentoGrid, type BentoItem } from '@/components/ui/bento-grid';
 import { SpotlightNavbar } from '@/components/ui/spotlight-navbar';
+import { MeshGradient } from "@paper-design/shaders-react";
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -86,9 +87,15 @@ export default function LandingPage() {
     <div className="min-h-screen text-white flex flex-col justify-between overflow-x-hidden relative">
 
 
-      {/* Background glow effects */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 h-[500px] w-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+      {/* Mesh Gradient Background */}
+      <div className="fixed inset-0 w-full h-full -z-10 pointer-events-none opacity-45">
+        <MeshGradient
+          className="w-full h-full"
+          colors={["#030712", "#022c22", "#0f3a2c", "#000000"]}
+          speed={0.4}
+          backgroundColor="#000000"
+        />
+      </div>
 
       {/* Header navbar */}
       <header className="max-w-7xl mx-auto w-full px-6 h-20 flex items-center justify-between glass-header sticky top-0 z-50">

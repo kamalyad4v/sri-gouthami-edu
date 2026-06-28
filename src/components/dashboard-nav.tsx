@@ -44,6 +44,13 @@ export default function DashboardNav() {
   const pathname = usePathname();
   const [session, setSession] = useState<UserSession | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+
+  const handleLogout = () => {
+    document.cookie = 'sg_role=; path=/; max-age=0; SameSite=Strict';
+    document.cookie = 'sg_email=; path=/; max-age=0; SameSite=Strict';
+    window.location.href = '/auth/sign-in';
+  };
 
   useEffect(() => {
     setSession(getClientSession());
@@ -100,8 +107,22 @@ export default function DashboardNav() {
       </div>
 
       {/* User Footer Profile */}
-      <div className="border-t border-zinc-900/40 pt-4 mt-auto">
-        <div className="flex items-center gap-3 p-1.5 rounded-lg glass-inner-card">
+      <div className="border-t border-zinc-900/40 pt-4 mt-auto relative">
+        {showLogout && (
+          <div className="absolute bottom-full left-0 w-full mb-2 bg-zinc-950 border border-zinc-900/40 rounded-lg p-1 shadow-lg glass-dropdown z-30">
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-3 py-2 text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-md transition-colors flex items-center gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>Logout Session</span>
+            </button>
+          </div>
+        )}
+        <div 
+          onClick={() => setShowLogout(!showLogout)}
+          className="flex items-center gap-3 p-1.5 rounded-lg glass-inner-card cursor-pointer hover:bg-zinc-800/30 transition-colors select-none"
+        >
           <div className="h-7 w-7 rounded-full bg-zinc-800 flex items-center justify-center border border-zinc-700 text-[10px] font-bold text-emerald-400 uppercase shrink-0">
             {session.name.substring(0, 2)}
           </div>
