@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { 
-  motion, 
-  useTransform, 
-  useSpring, 
-  MotionValue, 
-  useMotionValue, 
-  animate 
+import {
+  motion,
+  useTransform,
+  useSpring,
+  MotionValue,
+  useMotionValue,
+  animate
 } from "framer-motion";
 import BookNavbar from "./book-navbar";
 import {
@@ -94,7 +94,7 @@ interface ChapterDotProps {
 const ChapterDot = ({ scrollYProgress, t, label }: ChapterDotProps) => {
   const opacity = useTransform(scrollYProgress, (v) => Math.max(0.3, 1 - Math.abs(v - t) * 5));
   const dotScale = useTransform(scrollYProgress, (v) => (Math.abs(v - t) < 0.08 ? 1.3 : 0.9));
-  
+
   return (
     <motion.div className="flex items-center gap-3 cursor-pointer" style={{ opacity }}>
       <span className="text-[10px] uppercase tracking-[0.24em] text-ink/70 font-bold font-sans">{label}</span>
@@ -178,13 +178,13 @@ export const BookLanding = () => {
       const target = e.target as HTMLElement;
       const anchor = target.closest("a");
       if (!anchor) return;
-      
+
       const href = anchor.getAttribute("href");
       if (!href || !href.startsWith("#")) return;
 
       e.preventDefault();
       const id = href.substring(1);
-      
+
       let targetProgress = 0;
       if (id === "programs") targetProgress = 0.42;
       else if (id === "campuses") targetProgress = 0.90;

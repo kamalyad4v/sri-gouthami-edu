@@ -200,7 +200,7 @@
       "email": "student.aditya@gmail.com",
       "address": "Suryaraopeta, Kakinada",
       "leadSource": "Google Search Ad",
-      "status": "VERIFIED",
+      "status": "ADMITTED",
       "createdAt": "2026-06-02T05:03:27.933Z",
       "updatedAt": "2026-06-10T05:03:27.933Z",
       "campusId": "cam-3",
@@ -282,9 +282,9 @@
       "campusId": "cam-3",
       "programId": "prg-5",
       "courseId": "crs-5",
-      "status": "APPLICATION_SUBMITTED",
+      "status": "ADMITTED",
       "createdAt": "2026-06-04T05:03:27.933Z",
-      "updatedAt": "2026-06-19T10:07:33.687Z",
+      "updatedAt": "2026-06-28T16:24:34.775Z",
       "aiSummary": "Excellent applicant file for student Aditya Varma. Highly eligible based on strong marks memos matching eligibility guidelines for B.Sc CS (Honours). Recommended for immediate fee allotment.",
       "aiRiskFlags": "",
       "aiRecommendation": "APPROVE"
@@ -335,12 +335,12 @@
   ],
   "admissions": [
     {
-      "id": "adm-1",
-      "admissionNo": "ADM-2026-005",
-      "feesPaid": 15000,
-      "totalFees": 50000,
+      "id": "adm-6161",
+      "admissionNo": "ADM-2026-7554",
+      "feesPaid": 0,
+      "totalFees": 60000,
       "applicationId": "app-1",
-      "admittedAt": "2026-05-18T05:03:27.933Z"
+      "admittedAt": "2026-06-28T16:24:34.775Z"
     }
   ],
   "counsellorNotes": [
@@ -357,6 +357,13 @@
       "authorId": "usr-2",
       "leadId": "ld-1",
       "createdAt": "2026-06-08T05:03:27.933Z"
+    },
+    {
+      "note": "Merit scholarship applied for admission process.",
+      "authorId": "usr-2",
+      "leadId": "ld-1",
+      "id": "nt-6257",
+      "createdAt": "2026-06-28T16:25:44.515Z"
     }
   ],
   "activityLogs": [
@@ -394,6 +401,13 @@
       "userId": "usr-1",
       "leadId": "ld-2",
       "createdAt": "2026-06-19T10:06:06.628Z"
+    },
+    {
+      "id": "lg-8911",
+      "action": "Counsellor note added",
+      "userId": "usr-2",
+      "leadId": "ld-1",
+      "createdAt": "2026-06-28T16:25:44.515Z"
     }
   ],
   "notifications": [

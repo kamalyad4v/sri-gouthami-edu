@@ -65,10 +65,28 @@ export async function PATCH(request: Request) {
 
     // If it's a note append request
     if (note && authorId) {
+      let leadIdToUse = id;
+      let lead = await db.leadFindUnique(id);
+
+      if (!lead) {
+        const user = await db.userFindUnique(id);
+        if (user) {
+          const potentialLeads = await db.leadFindMany({ query: user.email });
+          if (potentialLeads.length > 0) {
+            lead = potentialLeads[0];
+            leadIdToUse = lead.id;
+          }
+        }
+      }
+
+      if (!lead) {
+        return NextResponse.json({ error: 'Lead not found for note creation' }, { status: 404 });
+      }
+
       const newNote = await db.noteCreate({
         note,
         authorId,
-        leadId: id,
+        leadId: leadIdToUse,
       });
       return NextResponse.json({ success: true, note: newNote });
     }

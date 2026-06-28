@@ -420,9 +420,34 @@ export const db = {
         data.applications[idx] = updated;
 
         // Sync Lead status if matching lead exists (mock logic)
-        const leadIdx = data.leads.findIndex(l => l.email === data.users.find(u => u.id === old.studentId)?.email);
+        const studentEmail = data.users.find(u => u.id === old.studentId)?.email;
+        const leadIdx = studentEmail ? data.leads.findIndex(l => l.email === studentEmail) : -1;
         if (leadIdx !== -1 && payload.status) {
           data.leads[leadIdx].status = payload.status;
+        }
+
+        if (payload.status === 'ADMITTED') {
+          const course = data.courses.find(c => c.id === updated.courseId);
+          const existingAdmission = data.admissions.find(a => a.applicationId === id);
+          const admissionPayload = {
+            admissionNo: `ADM-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
+            feesPaid: 0.0,
+            totalFees: course?.fees ?? 0,
+            applicationId: id,
+            admittedAt: new Date().toISOString(),
+          };
+
+          if (existingAdmission) {
+            Object.assign(existingAdmission, {
+              totalFees: admissionPayload.totalFees,
+              admittedAt: admissionPayload.admittedAt,
+            });
+          } else {
+            data.admissions.push({
+              id: `adm-${Math.floor(1000 + Math.random() * 9000)}`,
+              ...admissionPayload,
+            });
+          }
         }
 
         mockDb.saveMockDb(data);
@@ -440,7 +465,55 @@ export const db = {
         data: { status: payload.status }
       });
     }
+
+    if (payload.status === 'ADMITTED') {
+      const existingAdmission = await prisma.admission.findFirst({ where: { applicationId: id } });
+      const course = await prisma.course.findUnique({ where: { id: app.courseId } });
+      const totalFees = course?.fees ?? 0;
+      if (existingAdmission) {
+        await prisma.admission.update({
+          where: { id: existingAdmission.id },
+          data: {
+            totalFees,
+            admittedAt: new Date()
+          }
+        });
+      } else {
+        await prisma.admission.create({
+          data: {
+            admissionNo: `ADM-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
+            feesPaid: 0.0,
+            totalFees,
+            application: { connect: { id } }
+          }
+        });
+      }
+    }
+
     return app;
+  },
+
+  // Admissions
+  async admissionFindMany() {
+    if (isMock) {
+      return mockDb.getMockDb().admissions;
+    }
+    return await prisma.admission.findMany({ orderBy: { admittedAt: 'desc' } });
+  },
+
+  async admissionCreate(payload: any) {
+    if (isMock) {
+      const data = mockDb.getMockDb();
+      const newAdmission = {
+        id: `adm-${Math.floor(1000 + Math.random() * 9000)}`,
+        ...payload,
+        admittedAt: payload.admittedAt || new Date().toISOString(),
+      };
+      data.admissions.push(newAdmission);
+      mockDb.saveMockDb(data);
+      return newAdmission;
+    }
+    return await prisma.admission.create({ data: payload });
   },
 
   // Documents
