@@ -30,7 +30,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         <MainHeader />
 
         {/* Content Box */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto bg-[#f0f2f5] text-zinc-900">
           {children}
         </main>
       </div>

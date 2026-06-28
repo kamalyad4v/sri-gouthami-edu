@@ -12,7 +12,6 @@ import {
   School,
   ArrowUpRight,
   FileCheck,
-  PlusCircle,
   FileText,
   AlertTriangle,
   FolderOpen
@@ -22,7 +21,6 @@ import Link from 'next/link';
 
 // Lazy-load heavy charting library to reduce initial bundle
 const LazyCharts = dynamic(() => import('recharts').then(mod => {
-  // Re-export needed components
   return { default: () => null };
 }), { ssr: false });
 
@@ -105,15 +103,15 @@ export default function DashboardPage() {
   if (loading || !session) {
     return (
       <div className="space-y-6 animate-pulse p-6">
-        <div className="h-8 glass-panel rounded w-1/4" />
+        <div className="h-8 white-glass-card rounded w-1/4" />
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-28 glass-panel rounded-xl" />
+            <div key={i} className="h-28 white-glass-card rounded-xl" />
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="h-80 glass-panel rounded-xl" />
-          <div className="h-80 glass-panel rounded-xl" />
+          <div className="h-80 white-glass-card rounded-xl" />
+          <div className="h-80 white-glass-card rounded-xl" />
         </div>
       </div>
     );
@@ -135,55 +133,55 @@ export default function DashboardPage() {
       <div className="space-y-6">
         {/* KPI Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between glow-card">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium">Total Enquiries</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">{totalLeads}</h2>
-              <span className="text-[10px] text-emerald-400 flex items-center gap-0.5 mt-1 font-medium">
+              <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">Total Enquiries</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">{totalLeads}</h2>
+              <span className="text-[10px] text-emerald-600 flex items-center gap-0.5 mt-1 font-bold">
                 +12% from last week
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
-              <Users className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <Users className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
 
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium">Pending Apps</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">{pendingApps}</h2>
-              <span className="text-[10px] text-amber-400 flex items-center gap-0.5 mt-1 font-medium">
+              <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">Pending Apps</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">{pendingApps}</h2>
+              <span className="text-[10px] text-amber-600 flex items-center gap-0.5 mt-1 font-bold">
                 Requires verification
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
-              <Clock className="h-5 w-5 text-amber-400" />
+            <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <Clock className="h-5 w-5 text-amber-600" />
             </div>
           </div>
 
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium">Admitted Students</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">{admittedLeads}</h2>
-              <span className="text-[10px] text-emerald-400 flex items-center gap-0.5 mt-1 font-medium">
+              <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">Admitted Students</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">{admittedLeads}</h2>
+              <span className="text-[10px] text-emerald-600 flex items-center gap-0.5 mt-1 font-bold">
                 Target achievement 82%
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
-              <Award className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <Award className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
 
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium">Projected Revenue</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">{formatCurrency(projectedRevenue || 220000)}</h2>
-              <span className="text-[10px] text-emerald-400 flex items-center gap-0.5 mt-1 font-medium">
+              <span className="text-zinc-500 text-xs font-semibold uppercase tracking-wider">Projected Revenue</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">{formatCurrency(projectedRevenue || 45000)}</h2>
+              <span className="text-[10px] text-emerald-600 flex items-center gap-0.5 mt-1 font-bold">
                 From current admissions
               </span>
             </div>
-            <div className="h-10 w-10 rounded-lg glass-inner-card flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
         </div>
@@ -191,8 +189,8 @@ export default function DashboardPage() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Monthly Trend Area Chart */}
-          <div className="glass-panel p-5 rounded-xl">
-            <h3 className="text-sm font-semibold text-white mb-4">Admissions by Month (Campus Share)</h3>
+          <div className="white-glass-card p-5 rounded-xl">
+            <h3 className="text-sm font-bold text-zinc-900 mb-4">Admissions by Month (Campus Share)</h3>
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={MONTHLY_ADMISSIONS}>
@@ -206,10 +204,10 @@ export default function DashboardPage() {
                       <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-                  <XAxis dataKey="name" stroke="#71717a" fontSize={11} />
-                  <YAxis stroke="#71717a" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a', color: '#fff' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
+                  <XAxis dataKey="name" stroke="#52525b" fontSize={11} />
+                  <YAxis stroke="#52525b" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e4e4e7', color: '#1a1a1a' }} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Area type="monotone" dataKey="School" stroke="#10B981" fillOpacity={1} fill="url(#colorSchool)" />
                   <Area type="monotone" dataKey="JuniorCollege" stroke="#3B82F6" fillOpacity={1} fill="url(#colorJrCol)" />
@@ -219,8 +217,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Campus Distribution Pie Chart */}
-          <div className="glass-panel p-5 rounded-xl">
-            <h3 className="text-sm font-semibold text-white mb-4">Enrolment Share by Campus</h3>
+          <div className="white-glass-card p-5 rounded-xl">
+            <h3 className="text-sm font-bold text-zinc-900 mb-4">Enrolment Share by Campus</h3>
             <div className="h-72 flex flex-col sm:flex-row items-center justify-around">
               <div className="h-56 w-56">
                 <ResponsiveContainer width="100%" height="100%">
@@ -238,7 +236,7 @@ export default function DashboardPage() {
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a' }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e4e4e7', color: '#1a1a1a' }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -246,8 +244,8 @@ export default function DashboardPage() {
                 {CAMPUS_DISTRIBUTION.map(c => (
                   <div key={c.name} className="flex items-center gap-2">
                     <span className="h-3 w-3 rounded-full" style={{ backgroundColor: c.color }} />
-                    <span className="text-zinc-400">{c.name}:</span>
-                    <span className="font-semibold text-zinc-200">{c.value} students</span>
+                    <span className="text-zinc-600 font-semibold">{c.name}:</span>
+                    <span className="font-bold text-zinc-900">{c.value} students</span>
                   </div>
                 ))}
               </div>
@@ -255,15 +253,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Course Popularity Bar Chart */}
-          <div className="glass-panel p-5 rounded-xl">
-            <h3 className="text-sm font-semibold text-white mb-4">Top Program Registrations</h3>
+          <div className="white-glass-card p-5 rounded-xl">
+            <h3 className="text-sm font-bold text-zinc-900 mb-4">Top Program Registrations</h3>
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={COURSE_POPULARITY}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-                  <XAxis dataKey="name" stroke="#71717a" fontSize={11} />
-                  <YAxis stroke="#71717a" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
+                  <XAxis dataKey="name" stroke="#52525b" fontSize={11} />
+                  <YAxis stroke="#52525b" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e4e4e7', color: '#1a1a1a' }} />
                   <Bar dataKey="count" fill="#10B981" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -271,15 +269,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Counsellor Performance */}
-          <div className="glass-panel p-5 rounded-xl">
-            <h3 className="text-sm font-semibold text-white mb-4">Counsellor Conversion Chart</h3>
+          <div className="white-glass-card p-5 rounded-xl">
+            <h3 className="text-sm font-bold text-zinc-900 mb-4">Counsellor Conversion Chart</h3>
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={COUNSELLOR_PERFORMANCE}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
-                  <XAxis dataKey="name" stroke="#71717a" fontSize={11} />
-                  <YAxis stroke="#71717a" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" />
+                  <XAxis dataKey="name" stroke="#52525b" fontSize={11} />
+                  <YAxis stroke="#52525b" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e4e4e7', color: '#1a1a1a' }} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="Assigned" fill="#3B82F6" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="Admitted" fill="#10B981" radius={[4, 4, 0, 0]} />
@@ -292,23 +290,23 @@ export default function DashboardPage() {
         {/* Quick Actions Feed */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Recent Leads Activity Feed */}
-          <div className="glass-panel p-5 rounded-xl lg:col-span-2">
+          <div className="white-glass-card p-5 rounded-xl lg:col-span-2">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-white">Recent Enquiries Feed</h3>
-              <Link href="/leads" className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-0.5">
+              <h3 className="text-sm font-bold text-zinc-900">Recent Enquiries Feed</h3>
+              <Link href="/leads" className="text-xs text-emerald-600 hover:text-emerald-700 flex items-center gap-0.5 font-bold">
                 Manage CRM <ArrowUpRight className="h-3 w-3" />
               </Link>
             </div>
             <div className="space-y-3.5">
               {leads.slice(0, 4).map(lead => (
-                <div key={lead.id} className="flex items-center justify-between p-3 rounded-lg glass-inner-card">
+                <div key={lead.id} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200">
                   <div>
-                    <h4 className="font-semibold text-xs text-zinc-100">{lead.studentName}</h4>
+                    <h4 className="font-bold text-xs text-zinc-900">{lead.studentName}</h4>
                     <p className="text-[10px] text-zinc-500 mt-0.5">
                       Applied for {lead.courseId === 'crs-5' ? 'B.Sc CS' : 'MPC'} | Source: {lead.leadSource}
                     </p>
                   </div>
-                  <span className="text-[10px] font-bold text-zinc-400 glass-inner-card px-2 py-0.5 rounded-full uppercase">
+                  <span className="text-[10px] font-bold text-zinc-600 bg-zinc-150 border border-zinc-200 px-2 py-0.5 rounded-full uppercase">
                     {lead.status.replace('_', ' ')}
                   </span>
                 </div>
@@ -317,19 +315,19 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Actions Panel */}
-          <div className="glass-panel p-5 rounded-xl space-y-4">
-            <h3 className="text-sm font-semibold text-white">Quick Tasks Desk</h3>
+          <div className="white-glass-card p-5 rounded-xl space-y-4">
+            <h3 className="text-sm font-bold text-zinc-900">Quick Tasks Desk</h3>
             <div className="space-y-2">
-              <Link href="/leads" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
-                <PlusCircle className="h-4.5 w-4.5 text-emerald-400" />
+              <Link href="/leads" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors text-xs font-semibold text-zinc-800">
+                <Users className="h-4.5 w-4.5 text-emerald-600" />
                 <span>Register a New Enquiry</span>
               </Link>
-              <Link href="/applications" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
-                <FileCheck className="h-4.5 w-4.5 text-blue-400" />
+              <Link href="/applications" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors text-xs font-semibold text-zinc-800">
+                <FileCheck className="h-4.5 w-4.5 text-blue-600" />
                 <span>Verify Pending Certificates</span>
               </Link>
-              <Link href="/reports" className="flex items-center gap-3 p-3 rounded-lg glass-inner-card transition-colors text-xs font-medium text-zinc-200">
-                <FileText className="h-4.5 w-4.5 text-purple-400" />
+              <Link href="/reports" className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors text-xs font-semibold text-zinc-800">
+                <FileText className="h-4.5 w-4.5 text-purple-600" />
                 <span>Compile Admissions Report</span>
               </Link>
             </div>
@@ -340,25 +338,24 @@ export default function DashboardPage() {
   };
 
   const renderStudentDashboard = () => {
-    // Standard applicant view (Aditya Varma)
     return (
       <div className="space-y-6">
         {/* Welcome Header */}
-        <div className="glass-panel p-6 rounded-xl relative overflow-hidden glow-card">
+        <div className="white-glass-card p-6 rounded-xl relative overflow-hidden">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
                   Admission Season 2026
                 </span>
-                <span className="text-xs text-zinc-400">Application Status: IN REVIEW</span>
+                <span className="text-xs text-zinc-500 font-semibold">Application Status: IN REVIEW</span>
               </div>
-              <h2 className="text-xl font-bold mt-2 text-white">Welcome, Aditya Varma!</h2>
-              <p className="text-zinc-400 text-xs mt-1">
-                You are applying for **B.Sc Computer Science (Honours)** at our Amalapuram Campus.
+              <h2 className="text-xl font-bold mt-2 text-zinc-900">Welcome, Aditya Varma!</h2>
+              <p className="text-zinc-600 text-xs mt-1 font-medium">
+                You are applying for <strong className="text-zinc-900">B.Sc Computer Science (Honours)</strong> at our Amalapuram Campus.
               </p>
             </div>
-            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-colors">
+            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
               <FileCheck className="h-4 w-4" />
               <span>Track Application Desk</span>
             </Link>
@@ -366,8 +363,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Progression Steps */}
-        <div className="glass-panel p-6 rounded-xl">
-          <h3 className="text-sm font-semibold text-white mb-6">Your Admission Progress Tracker</h3>
+        <div className="white-glass-card p-6 rounded-xl">
+          <h3 className="text-sm font-bold text-zinc-900 mb-6">Your Admission Progress Tracker</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
             {[
               { title: 'Enquiry Registered', desc: 'CRM entry made', date: 'June 01, 2026', done: true },
@@ -375,13 +372,13 @@ export default function DashboardPage() {
               { title: 'Document Upload', desc: 'Aadhaar, memos uploaded', date: 'June 02, 2026', done: true },
               { title: 'Final Verification', desc: 'Counsellor review', date: 'Pending', done: false },
             ].map((step, idx) => (
-              <div key={idx} className="relative flex flex-col p-4 rounded-xl glass-inner-card">
-                <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${step.done ? 'text-emerald-400' : 'text-zinc-500'}`}>
+              <div key={idx} className="relative flex flex-col p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+                <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${step.done ? 'text-emerald-600' : 'text-zinc-500'}`}>
                   {step.done ? '✓ Step Complete' : '○ Pending Review'}
                 </span>
-                <span className="text-xs font-semibold text-white mt-1">{step.title}</span>
+                <span className="text-xs font-bold text-zinc-900 mt-1">{step.title}</span>
                 <span className="text-[10px] text-zinc-500 mt-0.5">{step.desc}</span>
-                <span className="text-[9px] text-zinc-400 mt-2">{step.date}</span>
+                <span className="text-[9px] text-zinc-400 mt-2 font-medium">{step.date}</span>
               </div>
             ))}
           </div>
@@ -390,8 +387,8 @@ export default function DashboardPage() {
         {/* Left/Right Split */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Document list status */}
-          <div className="glass-panel p-5 rounded-xl lg:col-span-2 space-y-4">
-            <h3 className="text-sm font-semibold text-white">Your Verification Certificates Checklist</h3>
+          <div className="white-glass-card p-5 rounded-xl lg:col-span-2 space-y-4">
+            <h3 className="text-sm font-bold text-zinc-900">Your Verification Certificates Checklist</h3>
             <div className="space-y-2.5">
               {[
                 { name: 'Aadhaar Card', status: 'APPROVED' },
@@ -400,10 +397,10 @@ export default function DashboardPage() {
                 { name: 'Intermediate Memo (12th)', status: 'PENDING' },
                 { name: 'Transfer Certificate', status: 'PENDING' },
               ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg glass-inner-card text-xs">
-                  <span className="font-semibold text-zinc-200">{doc.name}</span>
+                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
+                  <span className="font-bold text-zinc-800">{doc.name}</span>
                   <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
-                    doc.status === 'APPROVED' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'
+                    doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-600 bg-amber-500/10 border-amber-500/20'
                   }`}>
                     {doc.status}
                   </span>
@@ -413,18 +410,18 @@ export default function DashboardPage() {
           </div>
 
           {/* AI Helper card */}
-          <div className="glass-panel p-5 rounded-xl flex flex-col justify-between glow-card">
+          <div className="white-glass-card p-5 rounded-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-1 text-emerald-400 font-medium text-xs">
+              <div className="flex items-center gap-1 text-emerald-600 font-bold text-xs">
                 <Sparkles className="h-4 w-4" />
                 <span>AI Guidance Advisor</span>
               </div>
-              <h3 className="font-bold text-sm text-white mt-2">Unsure about Course Paths?</h3>
-              <p className="text-zinc-400 text-xs mt-1.5 leading-relaxed">
+              <h3 className="font-bold text-sm text-zinc-900 mt-2">Unsure about Course Paths?</h3>
+              <p className="text-zinc-650 text-xs mt-1.5 leading-relaxed font-medium">
                 Take our AI-powered course recommender! Provide your previous subject streams, goals, and interests to receive targeted options.
               </p>
             </div>
-            <Link href="/courses" className="mt-4 w-full py-2.5 rounded-lg glass-inner-card text-center text-xs font-semibold text-emerald-400 block transition-colors">
+            <Link href="/courses" className="mt-4 w-full py-2.5 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 text-center text-xs font-bold text-emerald-600 block transition-colors">
               Launch Recommender
             </Link>
           </div>
@@ -434,21 +431,20 @@ export default function DashboardPage() {
   };
 
   const renderParentDashboard = () => {
-    // Identical to Student Dashboard but with student reference info
     return (
       <div className="space-y-6">
-        <div className="glass-panel p-6 rounded-xl relative overflow-hidden glow-card">
+        <div className="white-glass-card p-6 rounded-xl relative overflow-hidden">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10">
             <div>
-              <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
+              <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
                 Parent Tracker Desk
               </span>
-              <h2 className="text-xl font-bold mt-2 text-white">Srinivas Varma</h2>
-              <p className="text-zinc-400 text-xs mt-1">
-                Tracking application for ward: **Aditya Varma** (Selected: B.Sc Computer Science, Amalapuram Campus).
+              <h2 className="text-xl font-bold mt-2 text-zinc-900">Srinivas Varma</h2>
+              <p className="text-zinc-650 text-xs mt-1 font-medium">
+                Tracking status for ward: <strong className="text-zinc-900">Aditya Varma</strong> (Selected: B.Sc Computer Science, Amalapuram Campus).
               </p>
             </div>
-            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-colors">
+            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
               <FileCheck className="h-4 w-4" />
               <span>Track Application Desk</span>
             </Link>
@@ -456,8 +452,8 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="glass-panel p-5 rounded-xl lg:col-span-2 space-y-4">
-            <h3 className="text-sm font-semibold text-white">Document Compliance List</h3>
+          <div className="white-glass-card p-5 rounded-xl lg:col-span-2 space-y-4">
+            <h3 className="text-sm font-bold text-zinc-900">Document Compliance List</h3>
             <div className="space-y-2.5">
               {[
                 { name: 'Aadhaar Card (Aditya Varma)', status: 'APPROVED' },
@@ -466,10 +462,10 @@ export default function DashboardPage() {
                 { name: 'Intermediate Memo (12th)', status: 'PENDING' },
                 { name: 'Transfer Certificate', status: 'PENDING' },
               ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg glass-inner-card text-xs">
-                  <span className="font-semibold text-zinc-200">{doc.name}</span>
+                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
+                  <span className="font-bold text-zinc-800">{doc.name}</span>
                   <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
-                    doc.status === 'APPROVED' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-400 bg-amber-500/10 border-amber-500/20'
+                    doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-600 bg-amber-500/10 border-amber-500/20'
                   }`}>
                     {doc.status}
                   </span>
@@ -478,22 +474,22 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="glass-panel p-5 rounded-xl space-y-3.5">
-            <h3 className="text-sm font-semibold text-white">Payment Installments</h3>
+          <div className="white-glass-card p-5 rounded-xl space-y-3.5">
+            <h3 className="text-sm font-bold text-zinc-900">Payment Installments</h3>
             <div className="space-y-2">
-              <div className="p-3.5 rounded-lg glass-inner-card flex justify-between items-center text-xs">
+              <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 flex justify-between items-center text-xs">
                 <div>
-                  <p className="font-medium text-zinc-200">First Installment</p>
+                  <p className="font-bold text-zinc-800">First Installment</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Paid via NetBanking</p>
                 </div>
-                <span className="text-emerald-400 font-bold">₹15,000</span>
+                <span className="text-emerald-600 font-bold">₹15,000</span>
               </div>
-              <div className="p-3.5 rounded-lg glass-inner-card flex justify-between items-center text-xs">
+              <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 flex justify-between items-center text-xs">
                 <div>
-                  <p className="font-medium text-zinc-200">Pending Tuition Due</p>
+                  <p className="font-bold text-zinc-800">Pending Tuition Due</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Due on Admission Approval</p>
                 </div>
-                <span className="text-amber-400 font-bold">₹35,000</span>
+                <span className="text-amber-600 font-bold">₹35,000</span>
               </div>
             </div>
           </div>
@@ -503,41 +499,40 @@ export default function DashboardPage() {
   };
 
   const renderFacultyDashboard = () => {
-    // Show institutions status and pending documents list for verification
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium font-semibold">Active Campuses</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">4</h2>
+              <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Active Campuses</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">4</h2>
             </div>
-            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
-              <School className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <School className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium font-semibold">Affiliated Programs</span>
-              <h2 className="text-2xl font-bold mt-1 text-white">8</h2>
+              <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Affiliated Programs</span>
+              <h2 className="text-2xl font-bold mt-1 text-zinc-900">8</h2>
             </div>
-            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
-              <FolderOpen className="h-5 w-5 text-emerald-400" />
+            <div className="h-10 w-10 rounded bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <FolderOpen className="h-5 w-5 text-emerald-600" />
             </div>
           </div>
-          <div className="glass-panel p-5 rounded-xl flex items-center justify-between">
+          <div className="white-glass-card p-5 rounded-xl flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 text-xs font-medium font-semibold">Verification Action Needed</span>
-              <h2 className="text-2xl font-bold mt-1 text-amber-400">2</h2>
+              <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Verification Action Needed</span>
+              <h2 className="text-2xl font-bold mt-1 text-amber-600">2</h2>
             </div>
-            <div className="h-10 w-10 rounded glass-inner-card flex items-center justify-center">
-              <AlertTriangle className="h-5 w-5 text-amber-400 animate-bounce" />
+            <div className="h-10 w-10 rounded bg-zinc-50 border border-zinc-200 flex items-center justify-center">
+              <AlertTriangle className="h-5 w-5 text-amber-600 animate-bounce" />
             </div>
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-xl space-y-4">
-          <h3 className="text-sm font-semibold text-white">Programs Roster Overview</h3>
+        <div className="white-glass-card p-5 rounded-xl space-y-4">
+          <h3 className="text-sm font-bold text-zinc-900">Programs Roster Overview</h3>
           <div className="space-y-2.5">
             {[
               { campus: 'Sri Gowthami Degree College', program: 'B.Sc Computer Science (Honours)', seats: '180/240 filled', status: 'Optimal' },
@@ -545,14 +540,14 @@ export default function DashboardPage() {
               { campus: 'Sri Gowthami School', program: 'Class 10 Board Program', seats: '120/150 filled', status: 'Optimal' },
               { campus: 'Sri Gowthami ITI', program: 'ITI Electrician', seats: '55/60 filled', status: 'Optimal' },
             ].map((item, idx) => (
-              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-lg glass-inner-card gap-2">
+              <div key={idx} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 gap-2">
                 <div>
-                  <h4 className="font-semibold text-xs text-zinc-100">{item.program}</h4>
+                  <h4 className="font-bold text-xs text-zinc-900">{item.program}</h4>
                   <p className="text-[10px] text-zinc-500 mt-0.5">{item.campus}</p>
                 </div>
-                <div className="flex items-center gap-4 text-xs">
-                  <span className="text-zinc-400">{item.seats}</span>
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                <div className="flex items-center gap-4 text-xs font-semibold">
+                  <span className="text-zinc-600">{item.seats}</span>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
                     {item.status}
                   </span>
                 </div>
@@ -569,19 +564,19 @@ export default function DashboardPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
       {/* Top Welcome Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-900/40">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
-            Sri Gowthami Portal <span className="text-xs font-semibold px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 uppercase">Beta</span>
+          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 flex items-center gap-2">
+            Sri Gowthami Portal <span className="text-xs font-semibold px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 text-zinc-500 uppercase">Beta</span>
           </h1>
-          <p className="text-zinc-400 text-xs mt-1">
+          <p className="text-zinc-500 text-xs mt-1">
             Institutional Admission Management Systems. Local date: {formatDate(new Date().toISOString())}
           </p>
         </div>
         
         {/* Simple role summary banner */}
-        <div className="px-3.5 py-1.5 rounded-lg glass-inner-card text-zinc-400 text-xs">
-          Operating Mode: <span className="text-emerald-400 font-bold uppercase">{process.env.NEXT_PUBLIC_MOCK_ENV === 'true' ? 'Mock-Persistent SQLite-like JSON' : 'PostgreSQL Live'}</span>
+        <div className="px-3.5 py-1.5 rounded-lg bg-white border border-zinc-200 text-zinc-600 text-xs">
+          Operating Mode: <span className="text-emerald-600 font-bold uppercase">{process.env.NEXT_PUBLIC_MOCK_ENV === 'true' ? 'Mock-Persistent SQLite-like JSON' : 'PostgreSQL Live'}</span>
         </div>
       </div>
 

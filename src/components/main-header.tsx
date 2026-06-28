@@ -88,9 +88,6 @@ export default function MainHeader() {
   const handleMarkSingleRead = async (id: string) => {
     if (!session) return;
     try {
-      // In mock, clicking it toggles or marks read. Let's send to api.
-      // Wait, there is no single mark API endpoint mentioned in table, but we can do a mock read mark.
-      // Let's implement it locally if isMock or send post.
       const data = notifications.map(n => n.id === id ? { ...n, isRead: true } : n);
       setNotifications(data);
       setUnreadCount(data.filter(n => !n.isRead).length);
@@ -102,10 +99,10 @@ export default function MainHeader() {
   if (!session) return null;
 
   return (
-    <header className="h-16 glass-header px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
+    <header className="h-16 bg-white border-b border-zinc-200 px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
       {/* Search Console */}
-      <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-lg glass-input text-zinc-400 w-80">
-        <Search className="h-3.5 w-3.5 text-zinc-500" />
+      <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-500 w-80">
+        <Search className="h-3.5 w-3.5 text-zinc-400" />
         <span className="text-[10px] text-zinc-500 font-medium">Search anything inside Gowthami Console...</span>
       </div>
 
@@ -117,7 +114,7 @@ export default function MainHeader() {
               setNotifDropdownOpen(!notifDropdownOpen);
               setRoleDropdownOpen(false);
             }}
-            className="p-2 rounded-lg glass-button text-zinc-400 hover:text-zinc-200 relative transition-colors"
+            className="p-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 text-zinc-600 hover:text-zinc-800 relative transition-colors"
           >
             <Bell className="h-4 w-4" />
             {unreadCount > 0 && (
@@ -126,13 +123,13 @@ export default function MainHeader() {
           </Button>
 
           {notifDropdownOpen && (
-            <div className="absolute right-0 mt-2.5 w-80 rounded-xl glass-dropdown p-2 z-50">
-              <div className="px-3 py-2 border-b border-zinc-900/40 mb-1 flex items-center justify-between">
-                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Activity Notifications</span>
+            <div className="absolute right-0 mt-2.5 w-80 rounded-xl bg-white border border-zinc-200 shadow-xl p-2 z-50">
+              <div className="px-3 py-2 border-b border-zinc-200 mb-1 flex items-center justify-between">
+                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Activity Notifications</span>
                 {unreadCount > 0 && (
                   <Button
                     onClick={handleMarkAllRead}
-                    className="text-[9px] font-bold text-emerald-400 hover:text-emerald-300 uppercase"
+                    className="text-[9px] font-bold text-emerald-600 hover:text-emerald-700 uppercase"
                   >
                     Mark all read
                   </Button>
@@ -141,19 +138,19 @@ export default function MainHeader() {
 
               <div className="max-h-60 overflow-y-auto space-y-0.5">
                 {notifications.length === 0 ? (
-                  <div className="p-6 text-center text-[11px] text-zinc-600">No new alerts.</div>
+                  <div className="p-6 text-center text-[11px] text-zinc-400">No new alerts.</div>
                 ) : (
                   notifications.map(n => (
                     <Button
                       key={n.id}
                       onClick={() => handleMarkSingleRead(n.id)}
                       className={cn(
-                        "w-full text-left p-2.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5 hover:bg-zinc-900",
-                        !n.isRead ? "bg-zinc-900/60 border border-zinc-800/40" : ""
+                        "w-full text-left p-2.5 rounded-lg text-xs transition-colors flex flex-col gap-0.5 hover:bg-zinc-50",
+                        !n.isRead ? "bg-emerald-50 border border-emerald-100" : ""
                       )}
                     >
                       <div className="flex items-center justify-between w-full">
-                        <span className={cn("font-semibold text-[11px]", !n.isRead ? "text-white" : "text-zinc-400")}>
+                        <span className={cn("font-semibold text-[11px]", !n.isRead ? "text-zinc-900" : "text-zinc-500")}>
                           {n.title}
                         </span>
                         {!n.isRead && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />}
@@ -174,16 +171,16 @@ export default function MainHeader() {
               setRoleDropdownOpen(!roleDropdownOpen);
               setNotifDropdownOpen(false);
             }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-400 border border-emerald-500/20 text-xs font-semibold tracking-wide transition-all"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold tracking-wide transition-all"
           >
-            <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+            <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
             <span>Role Desk: {rolesList.find(r => r.role === session.role)?.name || session.role}</span>
-            <ChevronDown className="h-3.5 w-3.5 text-emerald-400/80" />
+            <ChevronDown className="h-3.5 w-3.5 text-emerald-500" />
           </Button>
 
           {roleDropdownOpen && (
-            <div className="absolute right-0 mt-2.5 w-72 rounded-xl glass-dropdown p-2 z-50">
-              <div className="px-3 py-1.5 border-b border-zinc-900/40 mb-1">
+            <div className="absolute right-0 mt-2.5 w-72 rounded-xl bg-white border border-zinc-200 shadow-xl p-2 z-50">
+              <div className="px-3 py-1.5 border-b border-zinc-200 mb-1">
                 <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Role Simulation Desk</span>
               </div>
               <div className="space-y-0.5">
@@ -192,15 +189,15 @@ export default function MainHeader() {
                     key={r.role}
                     onClick={() => handleRoleChange(r.role)}
                     className={cn(
-                      "w-full text-left px-3 py-2 rounded-lg text-xs transition-all flex flex-col gap-0.5 hover:bg-zinc-900",
-                      session.role === r.role ? "bg-emerald-500/10 border border-emerald-500/20" : ""
+                      "w-full text-left px-3 py-2 rounded-lg text-xs transition-all flex flex-col gap-0.5 hover:bg-zinc-50",
+                      session.role === r.role ? "bg-emerald-50 border border-emerald-200" : ""
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className={cn("font-medium", session.role === r.role ? "text-emerald-400" : "text-zinc-200")}>
+                      <span className={cn("font-medium", session.role === r.role ? "text-emerald-700" : "text-zinc-700")}>
                         {r.name}
                       </span>
-                      {session.role === r.role && <Check className="h-3.5 w-3.5 text-emerald-400" />}
+                      {session.role === r.role && <Check className="h-3.5 w-3.5 text-emerald-600" />}
                     </div>
                     <span className="text-[10px] text-zinc-500">{r.desc}</span>
                   </Button>

@@ -89,26 +89,26 @@ export default function ChatbotWindow() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-16 right-0 w-80 md:w-96 h-[480px] glass-chatbot rounded-2xl flex flex-col overflow-hidden"
+            className="absolute bottom-16 right-0 w-80 md:w-96 h-[480px] bg-white border border-zinc-200 shadow-2xl rounded-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 border-b border-zinc-900/40 glass-header flex items-center justify-between">
+            <div className="p-4 border-b border-zinc-200 bg-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded bg-emerald-600/10 flex items-center justify-center border border-emerald-500/25">
-                  <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+                <div className="h-6 w-6 rounded bg-emerald-50 flex items-center justify-center border border-emerald-200">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-xs text-white">Admissions AI Assistant</h3>
+                  <h3 className="font-bold text-xs text-zinc-900">Admissions AI Assistant</h3>
                   <span className="text-[9px] text-zinc-500">Online & Ready to Help</span>
                 </div>
               </div>
-              <Button onClick={() => setIsOpen(false)} className="text-zinc-500 hover:text-zinc-400">
+              <Button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-zinc-600">
                 <X className="h-4 w-4" />
               </Button>
             </div>
 
             {/* Messages Stack */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-50">
               {messages.map((m, idx) => (
                 <div
                   key={idx}
@@ -116,7 +116,7 @@ export default function ChatbotWindow() {
                     "flex flex-col max-w-[80%] rounded-xl p-3 text-xs leading-relaxed",
                     m.role === 'user'
                       ? "ml-auto bg-emerald-600 text-white rounded-tr-none"
-                      : "glass-inner-card text-zinc-200 rounded-tl-none"
+                      : "bg-white border border-zinc-200 text-zinc-700 rounded-tl-none shadow-sm"
                   )}
                 >
                   <p className="whitespace-pre-line">{m.content}</p>
@@ -124,15 +124,15 @@ export default function ChatbotWindow() {
               ))}
 
               {isLoading && (
-                <div className="flex items-center gap-1 glass-inner-card rounded-xl rounded-tl-none p-3 text-xs text-zinc-400 max-w-[80%]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-500 animate-bounce" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-500 animate-bounce delay-100" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-500 animate-bounce delay-200" />
+                <div className="flex items-center gap-1 bg-white border border-zinc-200 rounded-xl rounded-tl-none p-3 text-xs text-zinc-400 max-w-[80%] shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 animate-bounce" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 animate-bounce delay-100" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 animate-bounce delay-200" />
                 </div>
               )}
 
               {error && (
-                <div className="flex items-center gap-2 p-3 bg-rose-950/20 border border-rose-500/20 text-rose-400 text-xs rounded-xl">
+                <div className="flex items-center gap-2 p-3 bg-rose-50 border border-rose-200 text-rose-600 text-xs rounded-xl">
                   <AlertCircle className="h-4 w-4 shrink-0" />
                   <p>{error}</p>
                 </div>
@@ -147,7 +147,7 @@ export default function ChatbotWindow() {
                       <Button
                         key={q}
                         onClick={() => handleSend(q)}
-                        className="text-[11px] text-zinc-300 glass-inner-card hover:border-emerald-500/20 px-2.5 py-1.5 rounded-lg text-left w-full transition-colors"
+                        className="text-[11px] text-zinc-700 bg-white border border-zinc-200 hover:bg-emerald-50 hover:border-emerald-200 px-2.5 py-1.5 rounded-lg text-left w-full transition-colors shadow-sm"
                       >
                         {q}
                       </Button>
@@ -164,14 +164,14 @@ export default function ChatbotWindow() {
                 e.preventDefault();
                 handleSend(input);
               }}
-              className="p-3 border-t border-zinc-900/40 glass-header flex gap-2"
+              className="p-3 border-t border-zinc-200 bg-white flex gap-2"
             >
               <input
                 type="text"
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 placeholder="Ask about fees, courses, locations..."
-                className="flex-1 glass-input rounded-lg px-3 py-2 text-xs text-white outline-none transition-colors"
+                className="flex-1 bg-zinc-100 border border-zinc-200 rounded-lg px-3 py-2 text-xs text-zinc-900 placeholder-zinc-400 outline-none focus:border-emerald-300 transition-colors"
               />
               <Button
                 type="submit"
