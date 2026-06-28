@@ -73,6 +73,33 @@ export default function LandingPage() {
     { title: 'Luminous Modern Facilities', desc: 'State-of-the-art computer centers, smart classroom structures, and extensive libraries.' }
   ];
 
+  const testimonials = [
+    {
+      name: "Srinivas Varma",
+      role: "Parent of Aditya Varma, CSE",
+      quote: "The transparency in fee tracking and document checklist updates is unmatched. Being able to track my son's verification status live on the parent dashboard saved me multiple trips to the campus.",
+      rating: 5,
+      badge: "Parent Portal User",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80"
+    },
+    {
+      name: "Aditya Varma",
+      role: "MPC Stream Graduate",
+      quote: "Sri Gowthami's integrated JEE coaching was crucial for my rank. The digital admissions desk and counselor guidance made selecting my MPC stream college branch simple and direct.",
+      rating: 5,
+      badge: "MPC Batch Alumni",
+      avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80"
+    },
+    {
+      name: "Prof. Krishna Rao",
+      role: "Senior Admissions Counsellor",
+      quote: "Managing admissions enquiries across 4 distinct campuses used to be a logistical nightmare. The unified CRM console has streamlined student follow-ups and note logs down to minutes.",
+      rating: 5,
+      badge: "Faculty Staff User",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
+    }
+  ];
+
   const bentoFeatures: BentoItem[] = [
     {
       title: "Unified CRM Leads Desk",
@@ -319,6 +346,53 @@ export default function LandingPage() {
                   <h4 className="font-bold text-xs text-white uppercase tracking-wider">{prop.title}</h4>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed mt-2">{prop.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section 6: Testimonials Section */}
+        <section id="testimonials" className="space-y-8 scroll-mt-24">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Testimonials</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Trusted by Parents & Students</h2>
+            <p className="text-xs text-zinc-400">See how verified admissions, coaching, and student support change lives.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((test, idx) => (
+              <div key={idx} className="glass-panel p-6 rounded-2xl flex flex-col justify-between gap-5 hover:border-emerald-500/25 transition-all duration-300">
+                <div className="space-y-4">
+                  {/* Stars */}
+                  <div className="flex gap-0.5 text-amber-400">
+                    {Array.from({ length: test.rating }).map((_, i) => (
+                      <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  {/* Quote */}
+                  <p className="text-xs text-zinc-300 italic leading-relaxed">
+                    "{test.quote}"
+                  </p>
+                </div>
+                
+                {/* User Info */}
+                <div className="flex items-center gap-3 pt-4 border-t border-zinc-900/30">
+                  <img 
+                    src={test.avatar} 
+                    alt={test.name} 
+                    className="w-9 h-9 rounded-full object-cover border border-zinc-800"
+                    loading="lazy"
+                  />
+                  <div className="flex-1 overflow-hidden">
+                    <span className="font-bold text-xs text-white block truncate">{test.name}</span>
+                    <span className="text-[10px] text-zinc-500 block truncate">{test.role}</span>
+                    <span className="mt-1.5 text-[8px] font-bold text-emerald-400 uppercase tracking-wide bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/15 inline-block">
+                      {test.badge}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
