@@ -8,6 +8,37 @@ import { Role } from '@/lib/mock-db';
 import { setClientSession } from '@/lib/auth-session';
 import { cn } from '@/lib/utils';
 
+const BackgroundGallery = () => {
+  return (
+    <div className="absolute inset-0 w-full h-full overflow-hidden opacity-[0.18] pointer-events-none select-none z-0 flex gap-4 p-4">
+      {/* Column 1 */}
+      <div className="flex-1 flex flex-col gap-4 -translate-y-12 animate-pulse" style={{ animationDuration: '6s' } as React.CSSProperties}>
+        <img src="/school.png" alt="" className="w-full h-48 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400" alt="" className="w-full h-64 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400" alt="" className="w-full h-48 object-cover rounded-xl" />
+      </div>
+      {/* Column 2 */}
+      <div className="flex-1 flex flex-col gap-4 translate-y-8 animate-pulse" style={{ animationDuration: '8s' } as React.CSSProperties}>
+        <img src="/junior_college.png" alt="" className="w-full h-64 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400" alt="" className="w-full h-48 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400" alt="" className="w-full h-64 object-cover rounded-xl" />
+      </div>
+      {/* Column 3 */}
+      <div className="flex-1 flex flex-col gap-4 -translate-y-8 animate-pulse" style={{ animationDuration: '7s' } as React.CSSProperties}>
+        <img src="/degree_college.png" alt="" className="w-full h-48 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=400" alt="" className="w-full h-64 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400" alt="" className="w-full h-48 object-cover rounded-xl" />
+      </div>
+      {/* Column 4 */}
+      <div className="flex-1 flex flex-col gap-4 translate-y-12 animate-pulse" style={{ animationDuration: '9s' } as React.CSSProperties}>
+        <img src="/technical_institute.png" alt="" className="w-full h-64 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400" alt="" className="w-full h-48 object-cover rounded-xl" />
+        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400" alt="" className="w-full h-64 object-cover rounded-xl" />
+      </div>
+    </div>
+  );
+};
+
 export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,7 +85,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-white relative">
+    <div className="min-h-screen flex items-center justify-center p-6 text-white relative bg-[#EFEBE0]/90">
+      {/* Background Parallax Grid Collage */}
+      <BackgroundGallery />
+
       {/* Dev Mode Toggle Gear */}
       <button
         onClick={() => setShowDevMode(!showDevMode)}
