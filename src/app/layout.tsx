@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${cormorant.variable} ${outfit.variable} antialiased`}>
+    <html lang="en" className="light">
+      <body className={`${cormorant.variable} ${outfit.variable} antialiased bg-white text-slate-900`}>
         <div className="relative z-10">
           <LayoutWrapper>{children}</LayoutWrapper>
         </div>

@@ -332,14 +332,26 @@
 .light .bg-zinc-900 {
   background-color: rgba(255, 255, 255, 0.35) !important;
 }
+.light .bg-zinc-900\/20 {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+}
+.light .bg-zinc-900\/35 {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+}
 .light .bg-zinc-900\/40 {
   background-color: rgba(255, 255, 255, 0.25) !important;
 }
+.light .bg-zinc-900\/50 {
+  background-color: rgba(255, 255, 255, 0.32) !important;
+}
+.light .bg-zinc-900\/60 {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.light .bg-zinc-900\/70 {
+  background-color: rgba(255, 255, 255, 0.45) !important;
+}
 .light .bg-zinc-950\/20 {
   background-color: transparent !important;
-}
-.light .bg-zinc-900\/50 {
-  background-color: rgba(255, 255, 255, 0.35) !important;
 }
 .light .bg-zinc-950\/40 {
   background-color: rgba(255, 255, 255, 0.3) !important;
@@ -347,8 +359,8 @@
 .light .bg-zinc-950\/60 {
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
-.light .bg-zinc-900\/60 {
-  background-color: rgba(255, 255, 255, 0.4) !important;
+.light .bg-black\/20 {
+  background-color: rgba(15, 23, 42, 0.08) !important;
 }
 .light .bg-black\/60 {
   background-color: rgba(0, 0, 0, 0.3) !important;
@@ -398,6 +410,16 @@
 /* Text Overrides for Light Mode */
 .light .text-white {
   color: #0f172a !important; /* slate-900 text */
+}
+.light .bg-emerald-600.text-white,
+.light .bg-indigo-600.text-white,
+.light .bg-rose-600.text-white,
+.light .bg-destructive.text-white,
+.light .bg-emerald-600.text-white:hover,
+.light .bg-indigo-600.text-white:hover,
+.light .bg-rose-600.text-white:hover,
+.light .bg-destructive.text-white:hover {
+  color: #ffffff !important;
 }
 .light .text-zinc-100 {
   color: #1e293b !important; /* slate-800 */
