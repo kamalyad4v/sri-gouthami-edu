@@ -137,17 +137,21 @@ export const BookLanding = () => {
     });
   };
 
+  // Fade out the 3D book when we reach the gallery scroll segment
+  const bookOpacity = useTransform(scrollYProgress, [0.80, 0.84], [1, 0]);
+  const bookPointerEvents = useTransform(scrollYProgress, (v) => v > 0.82 ? "none" : "auto");
+
   return (
     <div className="relative w-full bg-[#EFEBE0] overflow-x-hidden">
-      {/* 3D Book Scroll Track */}
-      <div ref={wrapperRef} className="relative w-full" style={{ height: "450vh" }}>
+      {/* 3D Book & Parallax Gallery Scroll Track */}
+      <div ref={wrapperRef} className="relative w-full" style={{ height: "600vh" }}>
         <BookNavbar onApplyClick={handleApply} />
         <ChapterIndicator scrollYProgress={scrollYProgress} />
         <ScrollHint scrollYProgress={scrollYProgress} />
 
         <div className="sticky top-0 h-screen w-full overflow-hidden scene-vignette">
           {/* Background Vignette Text Plates */}
-          <div className="absolute inset-0 pointer-events-none select-none">
+          <div className="absolute inset-0 pointer-events-none select-none z-10">
             <div className="absolute top-24 left-8 sm:left-14 hidden lg:block">
               <div className="text-[10px] uppercase tracking-[0.34em] text-ink/45 font-sans font-bold">Sri Gowthami · Brochure</div>
               <div className="font-serif italic text-ink/55 text-sm mt-1">An Interactive Presentation</div>
@@ -157,11 +161,11 @@ export const BookLanding = () => {
             </div>
           </div>
 
-          <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10">
-            <div
+          <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10 z-10">
+            <motion.div
+              style={{ opacity: bookOpacity, pointerEvents: bookPointerEvents, perspective: "2800px" }}
               data-testid="book"
               className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
-              style={{ perspective: "2800px" }}
             >
               {/* Book bottom shadow */}
               <div className="absolute -bottom-4 left-[6%] right-[6%] h-6 rounded-[50%] blur-2xl bg-black/20 pointer-events-none" aria-hidden />
@@ -212,13 +216,13 @@ export const BookLanding = () => {
 
                 <div className="absolute inset-0 rounded-[2px] ring-1 ring-black/[0.04] pointer-events-none" style={{ zIndex: 250 }} />
               </div>
-            </div>
+            </motion.div>
           </div>
+
+          {/* Parallax Gallery is absolutely positioned inside the sticky viewport */}
+          <ParallaxGallery scrollYProgress={scrollYProgress} />
         </div>
       </div>
-
-      {/* Parallax Gallery */}
-      <ParallaxGallery />
     </div>
   );
 };
