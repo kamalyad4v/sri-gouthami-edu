@@ -33,13 +33,13 @@ export const ParallaxGallery = ({ scrollYProgress }: ParallaxGalleryProps) => {
   }, []);
 
   // Map parent scroll from 0.82 to 0.98 directly to column translation coordinates
-  const y = useTransform(scrollYProgress, [0.82, 0.98], [height * 0.15, -height * 0.65], { clamp: true });
-  const y2 = useTransform(scrollYProgress, [0.82, 0.98], [height * 0.35, -height * 0.85], { clamp: true });
-  const y3 = useTransform(scrollYProgress, [0.82, 0.98], [height * 0.05, -height * 0.45], { clamp: true });
-  const y4 = useTransform(scrollYProgress, [0.82, 0.98], [height * 0.25, -height * 0.75], { clamp: true });
+  const y = useTransform(scrollYProgress, [0.84, 0.98], [height * 0.15, -height * 0.65], { clamp: true });
+  const y2 = useTransform(scrollYProgress, [0.84, 0.98], [height * 0.35, -height * 0.85], { clamp: true });
+  const y3 = useTransform(scrollYProgress, [0.84, 0.98], [height * 0.05, -height * 0.45], { clamp: true });
+  const y4 = useTransform(scrollYProgress, [0.84, 0.98], [height * 0.25, -height * 0.75], { clamp: true });
 
-  const galleryOpacity = useTransform(scrollYProgress, [0.80, 0.84], [0, 1]);
-  const pointerEvents = useTransform(scrollYProgress, (v) => v > 0.82 ? "auto" : "none");
+  const galleryOpacity = useTransform(scrollYProgress, [0.76, 0.88], [0, 1]);
+  const pointerEvents = useTransform(scrollYProgress, (v) => v > 0.80 ? "auto" : "none");
 
   return (
     <motion.div 
