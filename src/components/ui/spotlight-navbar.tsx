@@ -131,8 +131,8 @@ export function SpotlightNavbar({
             <nav
                 ref={navRef}
                 style={{
-                    "--spotlight-color": isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.08)",
-                    "--ambience-color": isDark ? "rgba(255,255,255,1)" : "rgba(0,0,0,0.8)",
+                    "--spotlight-color": isDark ? "rgba(16, 185, 129, 0.15)" : "rgba(16, 185, 129, 0.08)",
+                    "--ambience-color": isDark ? "rgba(16, 185, 129, 1)" : "rgba(16, 185, 129, 0.8)",
                 } as React.CSSProperties}
                 className={cn(
                     "spotlight-nav spotlight-nav-bg glass-border spotlight-nav-shadow",
