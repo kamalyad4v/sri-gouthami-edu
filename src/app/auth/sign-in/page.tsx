@@ -109,7 +109,7 @@ export default function SignInPage() {
       )}>
         
         {/* Left Card: Form */}
-        <div className="glass-panel p-8 rounded-2xl flex flex-col justify-between relative z-10 space-y-6">
+        <div className="liquid-glass p-8 rounded-2xl flex flex-col justify-between relative z-10 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-lg bg-emerald-600 flex items-center justify-center">
@@ -146,7 +146,7 @@ export default function SignInPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="e.g. counsellor.rama@gowthami.edu"
-                  className="w-full glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
+                  className="w-full liquid-glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
                 />
               </div>
 
@@ -157,7 +157,7 @@ export default function SignInPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
+                  className="w-full liquid-glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
                 />
               </div>
 
@@ -180,7 +180,7 @@ export default function SignInPage() {
 
         {/* Right Card: Quick simulation selections */}
         {showDevMode && (
-          <div className="glass-panel p-8 rounded-2xl flex flex-col justify-between relative z-10 border-amber-500/15 animate-fade-in">
+          <div className="liquid-glass p-8 rounded-2xl flex flex-col justify-between relative z-10 border-amber-500/15 animate-fade-in">
             <div className="space-y-4">
               <div className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs border-b border-zinc-900/40 pb-3">
                 <ShieldAlert className="h-4.5 w-4.5" />
