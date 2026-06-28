@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Cormorant_Garamond, Outfit } from 'next/font/google';
 import './globals.css';
 import LayoutWrapper from '@/components/layout-wrapper';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-serif',
 });
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${cormorant.variable} ${outfit.variable} antialiased`}>
         {/* Animated gradient background for glassmorphism */}
         <div className="glass-bg-gradient" aria-hidden="true">
           <div className="glass-orb glass-orb-1" />
