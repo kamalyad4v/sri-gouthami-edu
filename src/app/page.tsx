@@ -29,10 +29,34 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const campuses = [
-    { name: 'Primary & Secondary Schools', location: 'Kakinada', icon: School, desc: 'Play school to Class 10 CBSE/State Board syllabus, focused on foundational learning.' },
-    { name: 'Junior Colleges (10+2)', location: 'Rajahmundry', icon: GraduationCap, desc: 'Specialized intermediate program streams in MPC and BiPC, equipped with competitive exam prep coaching.' },
-    { name: 'Degree & PG Colleges', location: 'Amalapuram', icon: Award, desc: 'Undergraduate science & commerce degree courses including modern B.Sc CS and B.Com Computers.' },
-    { name: 'ITI & Technical Programs', location: 'Visakhapatnam', icon: Compass, desc: 'Practical trade certifications in Electrician & Fitter engineering to prepare for immediate employment.' },
+    { 
+      name: 'Primary & Secondary Schools', 
+      location: 'Kakinada', 
+      icon: School, 
+      desc: 'Play school to Class 10 CBSE/State Board syllabus, focused on foundational learning.',
+      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80'
+    },
+    { 
+      name: 'Junior Colleges (10+2)', 
+      location: 'Rajahmundry', 
+      icon: GraduationCap, 
+      desc: 'Specialized intermediate program streams in MPC and BiPC, equipped with competitive exam prep coaching.',
+      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=80'
+    },
+    { 
+      name: 'Degree & PG Colleges', 
+      location: 'Amalapuram', 
+      icon: Award, 
+      desc: 'Undergraduate science & commerce degree courses including modern B.Sc CS and B.Com Computers.',
+      image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=80'
+    },
+    { 
+      name: 'ITI & Technical Programs', 
+      location: 'Visakhapatnam', 
+      icon: Compass, 
+      desc: 'Practical trade certifications in Electrician & Fitter engineering to prepare for immediate employment.',
+      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80'
+    },
   ];
 
   const features = [
@@ -201,15 +225,25 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {campuses.map((camp, idx) => (
-              <div key={idx} className="glass-panel p-5 rounded-xl space-y-4 hover:border-emerald-500/30 transition-all duration-300">
-                <div className="h-9 w-9 rounded-lg glass-inner-card flex items-center justify-center">
-                  <camp.icon className="h-5 w-5 text-emerald-400" />
+              <div key={idx} className="group glass-panel p-4 rounded-xl space-y-3.5 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-between">
+                <div className="space-y-3.5">
+                  <div className="relative h-40 w-full rounded-lg overflow-hidden border border-zinc-900/50">
+                    <img 
+                      src={camp.image} 
+                      alt={camp.name} 
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 animate-fade-in" 
+                      loading="lazy"
+                    />
+                    <div className="absolute top-2 right-2 h-7 w-7 rounded-lg bg-zinc-950/80 border border-zinc-900/40 flex items-center justify-center backdrop-blur-sm">
+                      <camp.icon className="h-4 w-4 text-emerald-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">{camp.name}</h4>
+                    <span className="text-[10px] text-zinc-500 uppercase font-medium">{camp.location} Campus</span>
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{camp.desc}</p>
                 </div>
-                <div>
-                  <h4 className="font-bold text-sm text-white">{camp.name}</h4>
-                  <span className="text-[10px] text-zinc-500 uppercase font-medium">{camp.location} Campus</span>
-                </div>
-                <p className="text-xs text-zinc-400 leading-relaxed">{camp.desc}</p>
               </div>
             ))}
           </div>
