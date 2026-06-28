@@ -164,13 +164,16 @@ export default function LandingPage() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 bg-zinc-950/45 border border-zinc-900/50 px-5 py-2.5 rounded-full backdrop-blur-sm relative z-20">
-          <a href="#colleges" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Colleges</a>
-          <a href="#features" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Features</a>
-          <a href="#about" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">About</a>
-          <a href="#why-choose-us" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Why Us</a>
-          <a href="#testimonials" className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-emerald-400 transition-colors">Reviews</a>
-        </nav>
+        <SpotlightNavbar
+          items={[
+            { label: "Our Colleges", href: "#colleges" },
+            { label: "Console Features", href: "#features" },
+            { label: "About Us", href: "#about" },
+            { label: "Why Choose Us", href: "#why-choose-us" },
+            { label: "Reviews", href: "#testimonials" },
+          ]}
+          className="hidden md:flex pt-0"
+        />
 
         <div className="hidden md:flex items-center gap-3">
           <Link
