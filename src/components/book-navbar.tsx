@@ -1,5 +1,6 @@
 import React from "react";
 import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 interface NavbarProps {
   onApplyClick: () => void;
@@ -45,14 +46,13 @@ export const BookNavbar = ({ onApplyClick }: NavbarProps) => {
           ))}
         </ul>
 
-        <button
-          type="button"
-          onClick={onApplyClick}
-          data-testid="navbar-apply-button"
-          className="bg-forest hover:bg-forest-deep text-paper rounded-full px-5 py-2.5 text-[11px] font-bold tracking-wide transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg active:translate-y-0 uppercase font-sans"
+        <Link
+          href="/auth/sign-in"
+          data-testid="navbar-login-button"
+          className="bg-forest hover:bg-forest-deep text-paper rounded-full px-6 py-2.5 text-[11px] font-bold tracking-wide transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg active:translate-y-0 uppercase font-sans block text-center"
         >
-          Apply Now
-        </button>
+          Login
+        </Link>
       </nav>
     </header>
   );
