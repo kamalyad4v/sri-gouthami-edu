@@ -119,4 +119,5 @@ To wire up real cloud databases, credentials, file stores, and LLM providers, co
    * The AI scan reports, course recommenders, and floating guide chatbot will dynamically switch from our offline rule-based heuristics engine to live GPT-4o-mini completions!
 #   i n t e r n s h i p  
  #   i n t e r n s h i p  
+ #   s r i - g o u t h a m i - e d u  
  
