@@ -93,7 +93,6 @@ export default function LandingPage() {
           className="w-full h-full"
           colors={["#030712", "#022c22", "#0f3a2c", "#000000"]}
           speed={0.4}
-          backgroundColor="#000000"
         />
       </div>
 
