@@ -16,11 +16,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const isPublicPage = pathname === '/' || pathname.startsWith('/auth');
 
   if (isPublicPage) {
-    return (
-      <main className="min-h-screen text-foreground overflow-y-auto">
-        {children}
-      </main>
-    );
+    return children;
   }
 
   return (
