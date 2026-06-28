@@ -41,7 +41,7 @@ export default function LandingPage() {
       location: 'Rajahmundry', 
       icon: GraduationCap, 
       desc: 'Specialized intermediate program streams in MPC and BiPC, equipped with competitive exam prep coaching.',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop&q=80'
+      image: '/junior_college.png'
     },
     { 
       name: 'Degree & PG Colleges', 
