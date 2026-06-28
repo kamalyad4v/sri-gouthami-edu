@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, LiquidButton, MetalButton } from "@/components/ui/button";
-import { School, Sparkles, AlertCircle, ArrowRight, ShieldAlert, Settings } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { School, AlertCircle, ArrowRight, ShieldAlert, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { Role } from '@/lib/mock-db';
 import { setClientSession } from '@/lib/auth-session';
@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 const BackgroundGallery = () => {
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden opacity-[0.18] pointer-events-none select-none z-0 flex gap-4 p-4">
+    <div className="absolute inset-0 w-full h-full overflow-hidden opacity-[0.22] pointer-events-none select-none z-0 flex gap-4 p-4">
       {/* Column 1 */}
       <div className="flex-1 flex flex-col gap-4 -translate-y-12 animate-pulse" style={{ animationDuration: '6s' } as React.CSSProperties}>
         <img src="/school.png" alt="" className="w-full h-48 object-cover rounded-xl" />
@@ -85,14 +85,14 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-white relative bg-[#EFEBE0]/90">
+    <div className="min-h-screen flex items-center justify-center p-6 relative bg-[#07090e]">
       {/* Background Parallax Grid Collage */}
       <BackgroundGallery />
 
       {/* Dev Mode Toggle Gear */}
       <button
         onClick={() => setShowDevMode(!showDevMode)}
-        className="absolute top-6 right-6 p-2 text-zinc-600 hover:text-emerald-400 hover:bg-zinc-900/50 rounded-lg transition-colors flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider z-50 select-none"
+        className="absolute top-6 right-6 p-2 text-zinc-500 hover:text-emerald-400 hover:bg-zinc-900/50 rounded-lg transition-colors flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider z-50 select-none"
         title="Toggle Developer Options"
       >
         <Settings className={cn("h-4 w-4", showDevMode ? "animate-spin" : "")} />
@@ -100,8 +100,8 @@ export default function SignInPage() {
       </button>
 
       {/* Glow Effects */}
-      <div className="absolute top-0 right-1/4 h-[400px] w-[400px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 h-[400px] w-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 h-[400px] w-[400px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 h-[400px] w-[400px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className={cn(
         "w-full items-stretch transition-all duration-300",
@@ -109,21 +109,21 @@ export default function SignInPage() {
       )}>
         
         {/* Left Card: Form */}
-        <div className="liquid-glass p-8 rounded-2xl flex flex-col justify-between relative z-10 space-y-6">
+        <div className="white-glass-card p-8 rounded-2xl flex flex-col justify-between relative z-10 space-y-6">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-lg bg-emerald-600 flex items-center justify-center">
                 <School className="h-4.5 w-4.5 text-white" />
               </div>
               <div>
-                <span className="font-extrabold text-xs text-white uppercase tracking-wider block">Sri Gowthami</span>
+                <span className="font-extrabold text-xs text-zinc-900 uppercase tracking-wider block">Sri Gowthami</span>
                 <span className="text-[9px] text-zinc-500 font-medium">Educational Group</span>
               </div>
             </div>
 
             <div>
-              <h1 className="text-xl font-bold tracking-tight">Access Console</h1>
-              <p className="text-zinc-400 text-xs mt-1">
+              <h1 className="text-xl font-bold tracking-tight text-zinc-955">Access Console</h1>
+              <p className="text-zinc-600 text-xs mt-1">
                 {showDevMode 
                   ? "Sign in with credentials, or use simulation quick dials on the right." 
                   : "Sign in to access your student, parent, or faculty portal."
@@ -132,7 +132,7 @@ export default function SignInPage() {
             </div>
 
             {error && (
-              <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs">
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-semibold">
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -140,31 +140,31 @@ export default function SignInPage() {
 
             <form onSubmit={handleStandardSubmit} className="space-y-3.5">
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase">Email Address</label>
+                <label className="text-[10px] font-bold text-zinc-600 uppercase">Email Address</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="e.g. counsellor.rama@gowthami.edu"
-                  className="w-full liquid-glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
+                  className="w-full white-glass-input rounded-lg p-2.5 text-xs placeholder-zinc-400 outline-none transition-colors"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase">Password</label>
+                <label className="text-[10px] font-bold text-zinc-600 uppercase">Password</label>
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full liquid-glass-input rounded-lg p-2.5 text-xs text-white placeholder-zinc-600 outline-none transition-colors"
+                  className="w-full white-glass-input rounded-lg p-2.5 text-xs placeholder-zinc-400 outline-none transition-colors"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-emerald-500/10"
+                className="w-full py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-emerald-500/10"
               >
                 <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -172,69 +172,69 @@ export default function SignInPage() {
             </form>
           </div>
 
-          <div className="pt-4 border-t border-zinc-900/40 flex justify-between items-center text-[10px] text-zinc-500">
-            <Link href="/" className="hover:text-zinc-400 font-medium">← Back to Home</Link>
+          <div className="pt-4 border-t border-zinc-200 flex justify-between items-center text-[10px] text-zinc-500">
+            <Link href="/" className="hover:text-zinc-800 font-semibold transition-colors">← Back to Home</Link>
             {showDevMode && <span>Sandbox Session v1.0</span>}
           </div>
         </div>
 
         {/* Right Card: Quick simulation selections */}
         {showDevMode && (
-          <div className="liquid-glass p-8 rounded-2xl flex flex-col justify-between relative z-10 border-amber-500/15 animate-fade-in">
+          <div className="white-glass-card p-8 rounded-2xl flex flex-col justify-between relative z-10 border-amber-500/15 animate-fade-in">
             <div className="space-y-4">
-              <div className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs border-b border-zinc-900/40 pb-3">
+              <div className="flex items-center gap-1.5 text-amber-600 font-bold text-xs border-b border-zinc-200 pb-3">
                 <ShieldAlert className="h-4.5 w-4.5" />
                 <span>Developer Quick Simulation logins</span>
               </div>
 
-              <p className="text-[11px] text-zinc-400 leading-relaxed">
+              <p className="text-[11px] text-zinc-650 leading-relaxed font-medium">
                 Bypass OAuth flow in this offline sandbox. Click on any profile card below to assume their database roles instantly.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2 w-full">
                 <Button
                   onClick={() => handleQuickSimulation('SUPER_ADMIN')}
-                  className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
+                  className="p-3 text-left rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors flex flex-col gap-0.5 w-full text-zinc-800"
                 >
-                  <span className="text-xs font-semibold text-emerald-400">Super Admin</span>
+                  <span className="text-xs font-semibold text-emerald-600">Super Admin</span>
                   <span className="text-[9px] text-zinc-500">Director View (Sri Devi)</span>
                 </Button>
 
                 <Button
                   onClick={() => handleQuickSimulation('COUNSELLOR')}
-                  className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
+                  className="p-3 text-left rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors flex flex-col gap-0.5 w-full text-zinc-800"
                 >
-                  <span className="text-xs font-semibold text-blue-400">Counsellor Desk</span>
+                  <span className="text-xs font-semibold text-blue-600">Counsellor Desk</span>
                   <span className="text-[9px] text-zinc-500">CRM & remarks (Rama Rao)</span>
                 </Button>
 
                 <Button
                   onClick={() => handleQuickSimulation('FACULTY')}
-                  className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
+                  className="p-3 text-left rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors flex flex-col gap-0.5 w-full text-zinc-800"
                 >
-                  <span className="text-xs font-semibold text-amber-400">Faculty Staff</span>
+                  <span className="text-xs font-semibold text-amber-600">Faculty Staff</span>
                   <span className="text-[9px] text-zinc-500">Campuses & approvals</span>
                 </Button>
 
                 <Button
                   onClick={() => handleQuickSimulation('STUDENT')}
-                  className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5"
+                  className="p-3 text-left rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors flex flex-col gap-0.5 w-full text-zinc-800"
                 >
-                  <span className="text-xs font-semibold text-purple-400">Student Profile</span>
+                  <span className="text-xs font-semibold text-purple-600">Student Profile</span>
                   <span className="text-[9px] text-zinc-500">File uploads (Aditya Varma)</span>
                 </Button>
 
                 <Button
                   onClick={() => handleQuickSimulation('PARENT')}
-                  className="p-3 text-left rounded-lg glass-inner-card transition-colors flex flex-col gap-0.5 sm:col-span-2"
+                  className="p-3 text-left rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-colors flex flex-col gap-0.5 sm:col-span-2 w-full text-zinc-800"
                 >
-                  <span className="text-xs font-semibold text-rose-400">Parent Portal</span>
+                  <span className="text-xs font-semibold text-rose-600">Parent Portal</span>
                   <span className="text-[9px] text-zinc-500">Ward progression tracker (Srinivas Varma)</span>
                 </Button>
               </div>
             </div>
 
-            <div className="pt-4 text-center text-[9px] text-zinc-600">
+            <div className="pt-4 text-center text-[9px] text-zinc-500 font-semibold">
               Offline Sandbox persist mode is ACTIVE.
             </div>
           </div>
