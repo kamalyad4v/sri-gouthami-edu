@@ -204,10 +204,9 @@ export const BookLanding = () => {
     window.location.href = "/auth/sign-in";
   };
 
-  // Fade out the 3D book when we reach the gallery scroll segment (slow dissolve)
-  const bookOpacity = useTransform(scrollYProgress, [0.74, 0.86], [1, 0]);
-  const bookScale = useTransform(scrollYProgress, [0.74, 0.86], [1, 0.92]);
-  const bookPointerEvents = useTransform(scrollYProgress, (v) => v > 0.78 ? "none" : "auto");
+  // Fade out the 3D book when we reach the gallery scroll segment
+  const bookOpacity = useTransform(scrollYProgress, [0.80, 0.84], [1, 0]);
+  const bookPointerEvents = useTransform(scrollYProgress, (v) => v > 0.82 ? "none" : "auto");
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#EFEBE0] select-none">
@@ -229,7 +228,7 @@ export const BookLanding = () => {
 
         <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-10 z-10">
           <motion.div
-            style={{ opacity: bookOpacity, scale: bookScale, pointerEvents: bookPointerEvents, perspective: "2800px" }}
+            style={{ opacity: bookOpacity, pointerEvents: bookPointerEvents, perspective: "2800px" }}
             data-testid="book"
             className="relative w-full max-w-[1100px] aspect-[16/10] perspective-book"
           >
