@@ -18,7 +18,8 @@ import {
   GraduationCap,
   Menu,
   X,
-  LogOut
+  LogOut,
+  UserPlus
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -31,6 +32,7 @@ interface SidebarItem {
 const NAV_ITEMS: SidebarItem[] = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, allowedRoles: ['SUPER_ADMIN', 'COUNSELLOR', 'FACULTY', 'STUDENT', 'PARENT'] },
   { name: 'CRM Leads', href: '/leads', icon: Users, allowedRoles: ['SUPER_ADMIN', 'COUNSELLOR'] },
+  { name: 'New Registrations', href: '/registrations', icon: UserPlus, allowedRoles: ['SUPER_ADMIN', 'COUNSELLOR'] },
   { name: 'Applications', href: '/applications', icon: FileText, allowedRoles: ['SUPER_ADMIN', 'COUNSELLOR', 'FACULTY', 'STUDENT', 'PARENT'] },
   { name: 'Campuses', href: '/campuses', icon: School, allowedRoles: ['SUPER_ADMIN', 'FACULTY'] },
   { name: 'Programs', href: '/programs', icon: GraduationCap, allowedRoles: ['SUPER_ADMIN', 'FACULTY', 'COUNSELLOR'] },

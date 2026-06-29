@@ -501,7 +501,7 @@ export default function ApplicationDetailPage() {
       {/* Modal: Document Approve / Reject Drawer */}
       {selectedDoc && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
-          <div className="w-full max-w-sm glass-panel p-6 rounded-2xl space-y-4 relative">
+          <div className="w-full max-w-sm bg-white dark:glass-panel border border-zinc-200 dark:border-zinc-800 p-6 rounded-2xl space-y-4 relative shadow-2xl">
             <Button
               onClick={() => {
                 setSelectedDoc(null);
@@ -513,23 +513,23 @@ export default function ApplicationDetailPage() {
             </Button>
 
             <div>
-              <h2 className="text-sm font-bold text-white">Verify Certificate File</h2>
+              <h2 className="text-sm font-bold text-zinc-900 dark:text-white">Verify Certificate File</h2>
               <p className="text-[10px] text-zinc-500 mt-0.5">Auditing: **{selectedDoc.name}**</p>
             </div>
 
             <div className="space-y-3.5 text-xs">
-              <p className="text-zinc-400">
+              <p className="text-zinc-600 dark:text-zinc-400">
                 Confirm whether the uploaded certificate complies with credentials checklist guidelines.
               </p>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase">Rejection Feedback (Mandatory if rejected)</label>
+                <label className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase">Rejection Feedback (Mandatory if rejected)</label>
                 <input
                   type="text"
                   placeholder="e.g. Blurry scan copy, please re-upload"
                   value={rejectionReason}
                   onChange={e => setRejectionReason(e.target.value)}
-                  className="w-full glass-input rounded-lg p-2 text-white outline-none focus:border-emerald-500"
+                  className="w-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-zinc-900 dark:text-white outline-none focus:border-emerald-500 transition-colors"
                 />
               </div>
 
@@ -537,7 +537,7 @@ export default function ApplicationDetailPage() {
                 <Button
                   onClick={() => handleVerifyDoc(selectedDoc.id, 'REJECTED')}
                   disabled={actionLoading || (rejectionReason.trim() === '')}
-                  className="flex-grow py-2 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 border border-rose-500/20 font-medium disabled:opacity-50"
+                  className="flex-grow py-2 rounded-lg bg-rose-50 dark:bg-rose-600/20 hover:bg-rose-100 dark:hover:bg-rose-600/30 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20 font-medium disabled:opacity-50 transition-colors"
                 >
                   Reject File
                 </Button>

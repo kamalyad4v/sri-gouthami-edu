@@ -47,6 +47,41 @@
       "role": "PARENT",
       "clerkUserId": "clerk_parent_1",
       "createdAt": "2026-06-12T05:03:27.933Z"
+    },
+    {
+      "name": "kamal s y ",
+      "email": "ky9876979@gmail.com",
+      "role": "STUDENT",
+      "id": "usr-3306",
+      "createdAt": "2026-06-29T04:58:28.302Z"
+    },
+    {
+      "name": "kamal s y ",
+      "email": "ky9876979@gmail.com",
+      "role": "STUDENT",
+      "id": "usr-5664",
+      "createdAt": "2026-06-29T05:02:19.928Z"
+    },
+    {
+      "name": "kamal",
+      "email": "ky9876979@gmail.com",
+      "role": "STUDENT",
+      "id": "usr-9911",
+      "createdAt": "2026-06-29T05:04:32.842Z"
+    },
+    {
+      "name": "kamal",
+      "email": "ky98769799@gmail.com",
+      "role": "STUDENT",
+      "id": "usr-6688",
+      "createdAt": "2026-06-29T05:05:08.151Z"
+    },
+    {
+      "name": "kamal",
+      "email": "k9876979@gmail.com",
+      "role": "STUDENT",
+      "id": "usr-3204",
+      "createdAt": "2026-06-29T05:05:48.735Z"
     }
   ],
   "campuses": [
@@ -271,6 +306,36 @@
       "programId": "prg-6",
       "courseId": "crs-6",
       "counsellorId": "usr-2"
+    },
+    {
+      "studentName": "Kamal Yadav",
+      "parentName": "rishikesh",
+      "mobile": "08500678558",
+      "email": "ky9876979@gmail.com",
+      "address": "402 Akansha appartments Y junction srinagar gajuwaka\nSai durga bar",
+      "status": "NEW",
+      "campusId": "cam-1",
+      "programId": "prg-2",
+      "courseId": "crs-2",
+      "counsellorId": "usr-2",
+      "id": "ld-7966",
+      "createdAt": "2026-06-29T04:38:48.955Z",
+      "updatedAt": "2026-06-29T04:49:49.698Z"
+    },
+    {
+      "studentName": "Kamal Yadav",
+      "parentName": "rishikesh yadav",
+      "mobile": "08500678558",
+      "email": "ky9876979@gmail.com",
+      "address": "402 Akansha appartments Y junction srinagar gajuwaka\nSai durga bar",
+      "status": "DOCUMENTS_PENDING",
+      "campusId": "cam-3",
+      "programId": "prg-5",
+      "courseId": "crs-5",
+      "counsellorId": "usr-3",
+      "id": "ld-5189",
+      "createdAt": "2026-06-29T04:43:38.306Z",
+      "updatedAt": "2026-06-29T04:49:41.928Z"
     }
   ],
   "applications": [
@@ -305,7 +370,9 @@
       "url": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&auto=format&fit=crop&q=60",
       "status": "APPROVED",
       "applicationId": "app-1",
-      "createdAt": "2026-06-04T05:03:27.933Z"
+      "createdAt": "2026-06-04T05:03:27.933Z",
+      "rejectionReason": null,
+      "updatedAt": "2026-06-29T04:50:43.539Z"
     },
     {
       "id": "doc-3",
@@ -321,10 +388,11 @@
       "id": "doc-4",
       "name": "Transfer Certificate",
       "url": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=60",
-      "status": "APPROVED",
+      "status": "REJECTED",
       "applicationId": "app-1",
       "createdAt": "2026-06-04T05:03:27.933Z",
-      "rejectionReason": null
+      "rejectionReason": "blur",
+      "updatedAt": "2026-06-29T04:50:59.087Z"
     },
     {
       "id": "doc-5",
@@ -410,6 +478,41 @@
       "userId": "usr-2",
       "leadId": "ld-1",
       "createdAt": "2026-06-28T16:25:44.515Z"
+    },
+    {
+      "id": "lg-8735",
+      "action": "Lead Created",
+      "userId": "usr-1",
+      "leadId": "ld-7966",
+      "createdAt": "2026-06-29T04:38:48.956Z"
+    },
+    {
+      "id": "lg-1051",
+      "action": "Lead Created",
+      "userId": "usr-2",
+      "leadId": "ld-5189",
+      "createdAt": "2026-06-29T04:43:38.306Z"
+    },
+    {
+      "id": "lg-2367",
+      "action": "Status changed to DOCUMENTS PENDING",
+      "userId": "usr-1",
+      "leadId": "ld-5189",
+      "createdAt": "2026-06-29T04:49:32.979Z"
+    },
+    {
+      "id": "lg-5403",
+      "action": "Lead assigned to Sita Kumari",
+      "userId": "usr-1",
+      "leadId": "ld-5189",
+      "createdAt": "2026-06-29T04:49:41.929Z"
+    },
+    {
+      "id": "lg-1128",
+      "action": "Lead assigned to Rama Rao",
+      "userId": "usr-1",
+      "leadId": "ld-7966",
+      "createdAt": "2026-06-29T04:49:49.698Z"
     }
   ],
   "notifications": [

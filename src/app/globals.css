@@ -404,7 +404,59 @@
 
 /* Light mode modal overlay */
 .light .glass-modal-overlay {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+/* Light Mode Modal Panel & Form Control Overrides */
+.light .glass-modal-overlay .glass-panel {
+  background: #ffffff !important;
+  border-color: rgba(226, 232, 240, 1) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.light .glass-modal-overlay .glass-panel h2,
+.light .glass-modal-overlay .glass-panel h3,
+.light .glass-modal-overlay .glass-panel .text-white {
+  color: #0f172a !important;
+}
+
+.light .glass-modal-overlay .glass-panel p,
+.light .glass-modal-overlay .glass-panel span:not(.text-rose-400):not(.text-emerald-400) {
+  color: #475569 !important;
+}
+
+.light .glass-modal-overlay .glass-panel .glass-input {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .glass-modal-overlay .glass-panel select {
+  background-color: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .glass-modal-overlay .glass-panel select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light .glass-modal-overlay .glass-panel .glass-inner-card {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .glass-modal-overlay .glass-panel button.glass-button {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+.light .glass-modal-overlay .glass-panel button.glass-button:hover {
+  background: #e2e8f0 !important;
 }
 
 /* Text Overrides for Light Mode */

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   motion,
   useTransform,
@@ -18,6 +18,7 @@ import {
   FooterLeft, FooterRight,
 } from "./book-pages";
 import { ParallaxGallery } from "./parallax-gallery";
+import { RegistrationModal } from "./registration-modal";
 
 const SHEETS = [
   { id: "cover", Front: CoverFront, Back: HeroLeft },
@@ -199,9 +200,10 @@ export const BookLanding = () => {
     return () => document.removeEventListener("click", handleAnchorClick);
   }, [scrollYProgress]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleApply = () => {
-    // Navigate straight to the admissions desk login
-    window.location.href = "/auth/sign-in";
+    setIsModalOpen(true);
   };
 
   // Fade out the 3D book when we reach the gallery scroll segment
@@ -257,7 +259,7 @@ export const BookLanding = () => {
                 className="absolute top-0 right-0 w-1/2 h-full overflow-hidden"
                 style={{ zIndex: 0 }}
               >
-                <FooterRight />
+                <FooterRight onApplyClick={handleApply} />
               </div>
 
               {/* Spine */}
@@ -287,6 +289,8 @@ export const BookLanding = () => {
         {/* Parallax Gallery is absolutely positioned inside the sticky viewport */}
         <ParallaxGallery scrollYProgress={scrollYProgress} />
       </div>
+
+      <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };

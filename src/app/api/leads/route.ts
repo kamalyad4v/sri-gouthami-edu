@@ -18,8 +18,9 @@ export async function GET(request: Request) {
     const campusId = searchParams.get('campusId') || undefined;
     const programId = searchParams.get('programId') || undefined;
     const status = searchParams.get('status') || undefined;
+    const counsellorId = searchParams.get('counsellorId') || undefined;
 
-    const list = await db.leadFindMany({ query, campusId, programId, status });
+    const list = await db.leadFindMany({ query, campusId, programId, status, counsellorId });
     return NextResponse.json(list);
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
@@ -35,6 +36,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing mandatory fields' }, { status: 400 });
     }
 
+    // Auto-assign to a counsellor if not provided
+    let assignedCounsellorId = counsellorId || null;
+    if (!assignedCounsellorId) {
+      const users = await db.userFindMany();
+      const counsellors = users.filter((u: any) => u.role === 'COUNSELLOR');
+      if (counsellors.length > 0) {
+        assignedCounsellorId = counsellors[0].id;
+      }
+    }
+
     const created = await db.leadCreate({
       studentName,
       parentName,
@@ -45,8 +56,23 @@ export async function POST(request: Request) {
       campusId,
       programId,
       courseId,
-      counsellorId: counsellorId || null,
+      counsellorId: assignedCounsellorId,
     });
+
+    // Auto-create a User account for the student so they can log in
+    try {
+      const existingUsers = await db.userFindMany();
+      const userExists = existingUsers.some((u: any) => u.email.toLowerCase() === email.toLowerCase());
+      if (!userExists) {
+        await db.userCreate({
+          name: studentName,
+          email: email,
+          role: 'STUDENT',
+        });
+      }
+    } catch (userErr) {
+      console.warn("Failed to auto-create student user account:", userErr);
+    }
 
     return NextResponse.json(created);
   } catch (err: any) {
@@ -73,8 +99,9 @@ export async function PATCH(request: Request) {
         if (user) {
           const potentialLeads = await db.leadFindMany({ query: user.email });
           if (potentialLeads.length > 0) {
-            lead = potentialLeads[0];
-            leadIdToUse = lead.id;
+            const foundLead = potentialLeads[0];
+            leadIdToUse = foundLead.id;
+            lead = await db.leadFindUnique(foundLead.id);
           }
         }
       }

@@ -299,8 +299,11 @@ export const WhyLeft = () => (
   </PageFrame>
 );
 
-/* ============ FOOTER ============ */
-export const FooterRight = () => (
+interface FooterRightProps {
+  onApplyClick?: () => void;
+}
+
+export const FooterRight = ({ onApplyClick }: FooterRightProps) => (
   <PageFrame side="right" testId="page-footer">
     <div className="flex-1 flex flex-col px-8 sm:px-14 py-10 sm:py-14">
       <Overline num="V.">Colophon</Overline>
@@ -313,10 +316,14 @@ export const FooterRight = () => (
         <div className="flex items-center gap-2.5"><Phone className="w-3.5 h-3.5 text-terracotta" />+91 98480 22338</div>
         <div className="flex items-center gap-2.5"><MapPin className="w-3.5 h-3.5 text-terracotta" />Rajahmundry Road, Andhra Pradesh, India</div>
       </div>
-      <a href="/auth/sign-in" data-testid="footer-apply-button" className="mt-8 inline-flex items-center gap-2 bg-forest hover:bg-forest-deep text-paper rounded-full px-6 py-3 text-xs font-bold tracking-wide self-start transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg group uppercase font-sans">
+      <button 
+        onClick={onApplyClick}
+        data-testid="footer-apply-button" 
+        className="mt-8 inline-flex items-center gap-2 bg-forest hover:bg-forest-deep text-paper rounded-full px-6 py-3 text-xs font-bold tracking-wide self-start transition-all duration-300 hover:-translate-y-[1px] hover:shadow-lg group uppercase font-sans cursor-pointer"
+      >
         Apply Now for 2026-27
         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </a>
+      </button>
       <div className="mt-auto pt-8 border-t border-ink/10 flex items-center justify-between">
         <div className="text-[11px] uppercase tracking-[0.2em] text-ink/45 font-sans font-bold">© Sri Gowthami 2026</div>
         <div className="flex gap-3 text-ink/55">

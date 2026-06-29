@@ -9,3 +9,24 @@ export async function GET() {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { name, email, role } = body;
+
+    if (!name || !email || !role) {
+      return NextResponse.json({ error: 'Missing mandatory fields' }, { status: 400 });
+    }
+
+    const created = await db.userCreate({
+      name,
+      email,
+      role,
+    });
+
+    return NextResponse.json(created);
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}

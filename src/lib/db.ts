@@ -66,6 +66,21 @@ export const db = {
     return await prisma.user.findUnique({ where: { id } });
   },
 
+  async userCreate(payload: any) {
+    if (isMock) {
+      const data = mockDb.getMockDb();
+      const newUser = {
+        ...payload,
+        id: `usr-${Math.floor(1000 + Math.random() * 9000)}`,
+        createdAt: new Date().toISOString(),
+      };
+      data.users.push(newUser);
+      mockDb.saveMockDb(data);
+      return newUser;
+    }
+    return await prisma.user.create({ data: payload });
+  },
+
   async userUpdate(id: string, payload: any) {
     if (isMock) {
       const data = mockDb.getMockDb();

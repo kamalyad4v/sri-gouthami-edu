@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { School, AlertCircle, ArrowRight, ShieldAlert, Settings } from 'lucide-react';
+import { School, AlertCircle, ArrowRight, ShieldAlert, Settings, X } from 'lucide-react';
 import Link from 'next/link';
 import { Role } from '@/lib/mock-db';
 import { setClientSession } from '@/lib/auth-session';
@@ -45,6 +45,49 @@ export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showDevMode, setShowDevMode] = useState(false);
+
+  // Registration States
+  const [registerRole, setRegisterRole] = useState<'STUDENT' | 'PARENT' | null>(null);
+  const [regName, setRegName] = useState('');
+  const [regEmail, setRegEmail] = useState('');
+  const [regPassword, setRegPassword] = useState('');
+  const [regLoading, setRegLoading] = useState(false);
+  const [regError, setRegError] = useState<string | null>(null);
+
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setRegError(null);
+
+    if (!regName.trim() || !regEmail.trim() || !regPassword.trim()) {
+      setRegError('Please fill in all details.');
+      return;
+    }
+
+    setRegLoading(true);
+    try {
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: regName,
+          email: regEmail,
+          role: registerRole,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to register account.');
+      }
+
+      // Auto login after successful registration!
+      setClientSession(registerRole!);
+    } catch (err: any) {
+      setRegError(err.message || 'An error occurred. Please try again.');
+    } finally {
+      setRegLoading(false);
+    }
+  };
 
   const handleStandardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,6 +213,25 @@ export default function SignInPage() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </form>
+
+            <div className="text-center text-[10px] text-zinc-500 border-t border-zinc-200/60 pt-3">
+              Don&apos;t have an account?{" "}
+              <button
+                type="button"
+                onClick={() => setRegisterRole("STUDENT")}
+                className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline cursor-pointer"
+              >
+                Register as Student
+              </button>
+              {" "}or{" "}
+              <button
+                type="button"
+                onClick={() => setRegisterRole("PARENT")}
+                className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline cursor-pointer"
+              >
+                Register as Parent
+              </button>
+            </div>
           </div>
 
           <div className="pt-4 border-t border-zinc-200 flex justify-between items-center text-[10px] text-zinc-500">
@@ -241,6 +303,88 @@ export default function SignInPage() {
         )}
 
       </div>
+
+      {/* Registration Modal */}
+      {registerRole && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-modal-overlay">
+          <div className="w-full max-w-sm bg-white dark:glass-panel border border-zinc-200 dark:border-zinc-800 p-6 rounded-2xl space-y-4 relative shadow-2xl animate-fade-in text-zinc-900 dark:text-white">
+            <button
+              onClick={() => {
+                setRegisterRole(null);
+                setRegName("");
+                setRegEmail("");
+                setRegPassword("");
+                setRegError(null);
+              }}
+              className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-400 cursor-pointer"
+            >
+              <X className="h-4.5 w-4.5" />
+            </button>
+
+            <div>
+              <h2 className="text-sm font-bold">
+                Register as {registerRole === "STUDENT" ? "Student" : "Parent"}
+              </h2>
+              <p className="text-[10px] text-zinc-500 mt-0.5">
+                Create a sandbox profile to access the admissions console.
+              </p>
+            </div>
+
+            {regError && (
+              <div className="flex items-center gap-2 p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-600 text-[11px] font-semibold">
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                <span>{regError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleRegisterSubmit} className="space-y-3.5 text-xs">
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-zinc-500 uppercase">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder={registerRole === "STUDENT" ? "e.g. Aditya Varma" : "e.g. Srinivas Varma"}
+                  value={regName}
+                  onChange={e => setRegName(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 outline-none focus:border-emerald-500"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-zinc-500 uppercase">Email Address *</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="email@example.com"
+                  value={regEmail}
+                  onChange={e => setRegEmail(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 outline-none focus:border-emerald-500"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-bold text-zinc-500 uppercase">Password *</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  value={regPassword}
+                  onChange={e => setRegPassword(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 outline-none focus:border-emerald-500"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={regLoading}
+                className="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-lg shadow-emerald-500/10 cursor-pointer"
+              >
+                {regLoading ? "Registering..." : "Submit Registration"}
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
