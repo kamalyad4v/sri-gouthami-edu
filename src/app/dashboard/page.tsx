@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getClientSession, UserSession } from '@/lib/auth-session';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import { cn, formatCurrency, formatDate } from '@/lib/utils';
 import {
   TrendingUp,
   Users,
@@ -338,6 +338,27 @@ export default function DashboardPage() {
   };
 
   const renderStudentDashboard = () => {
+    const studentApp = applications.find(a => a.studentId === session.id);
+    const status = studentApp?.status || 'NEW';
+    const statusLabel = status.replace('_', ' ');
+    const courseName = studentApp?.course?.name || 'B.Sc Computer Science (Honours)';
+    const campusName = studentApp?.campus?.name || 'Amalapuram Campus';
+    const trackPath = studentApp ? `/applications/${studentApp.id}` : '/applications';
+
+    const isStep1Done = true;
+    const isStep2Done = !!studentApp;
+    const isStep3Done = !!studentApp && (status !== 'NEW' && status !== 'CONTACTED' && status !== 'INTERESTED' && status !== 'DOCUMENTS_PENDING');
+    const isStep4Done = !!studentApp && (status === 'VERIFIED' || status === 'ADMITTED');
+
+    const steps = [
+      { title: 'Enquiry Registered', desc: 'CRM entry made', date: studentApp ? formatDate(studentApp.createdAt) : 'June 01, 2026', done: isStep1Done },
+      { title: 'Application Form', desc: 'Course selected', date: studentApp ? formatDate(studentApp.createdAt) : 'June 02, 2026', done: isStep2Done },
+      { title: 'Document Upload', desc: 'Aadhaar, memos uploaded', date: studentApp ? formatDate(studentApp.createdAt) : 'June 02, 2026', done: isStep3Done },
+      { title: 'Final Verification', desc: status === 'REJECTED' ? 'Rejected' : status === 'ADMITTED' ? 'Approved & Admitted' : 'Counsellor review', date: (status === 'VERIFIED' || status === 'ADMITTED') ? formatDate(studentApp.updatedAt) : status === 'REJECTED' ? 'Rejected' : 'Pending', done: isStep4Done },
+    ];
+
+    const studentDocs = studentApp?.documents || [];
+
     return (
       <div className="space-y-6">
         {/* Welcome Header */}
@@ -348,14 +369,14 @@ export default function DashboardPage() {
                 <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
                   Admission Season 2026
                 </span>
-                <span className="text-xs text-zinc-500 font-semibold">Application Status: IN REVIEW</span>
+                <span className="text-xs text-zinc-500 font-semibold uppercase">Application Status: {statusLabel}</span>
               </div>
-              <h2 className="text-xl font-bold mt-2 text-zinc-900">Welcome, Aditya Varma!</h2>
-              <p className="text-zinc-600 text-xs mt-1 font-medium">
-                You are applying for <strong className="text-zinc-900">B.Sc Computer Science (Honours)</strong> at our Amalapuram Campus.
+              <h2 className="text-xl font-bold mt-2 text-zinc-900">Welcome, {session.name}!</h2>
+              <p className="text-zinc-650 text-xs mt-1 font-medium">
+                You are applying for <strong className="text-zinc-900">{courseName}</strong> at our {campusName}.
               </p>
             </div>
-            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
+            <Link href={trackPath} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
               <FileCheck className="h-4 w-4" />
               <span>Track Application Desk</span>
             </Link>
@@ -366,12 +387,7 @@ export default function DashboardPage() {
         <div className="white-glass-card p-6 rounded-xl">
           <h3 className="text-sm font-bold text-zinc-900 mb-6">Your Admission Progress Tracker</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
-            {[
-              { title: 'Enquiry Registered', desc: 'CRM entry made', date: 'June 01, 2026', done: true },
-              { title: 'Application Form', desc: 'Course selected', date: 'June 02, 2026', done: true },
-              { title: 'Document Upload', desc: 'Aadhaar, memos uploaded', date: 'June 02, 2026', done: true },
-              { title: 'Final Verification', desc: 'Counsellor review', date: 'Pending', done: false },
-            ].map((step, idx) => (
+            {steps.map((step, idx) => (
               <div key={idx} className="relative flex flex-col p-4 rounded-xl bg-zinc-50 border border-zinc-200">
                 <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${step.done ? 'text-emerald-600' : 'text-zinc-500'}`}>
                   {step.done ? '✓ Step Complete' : '○ Pending Review'}
@@ -390,22 +406,23 @@ export default function DashboardPage() {
           <div className="white-glass-card p-5 rounded-xl lg:col-span-2 space-y-4">
             <h3 className="text-sm font-bold text-zinc-900">Your Verification Certificates Checklist</h3>
             <div className="space-y-2.5">
-              {[
-                { name: 'Aadhaar Card', status: 'APPROVED' },
-                { name: 'SSC Memo (10th)', status: 'APPROVED' },
-                { name: 'Student Photo', status: 'APPROVED' },
-                { name: 'Intermediate Memo (12th)', status: 'PENDING' },
-                { name: 'Transfer Certificate', status: 'PENDING' },
-              ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
-                  <span className="font-bold text-zinc-800">{doc.name}</span>
-                  <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
-                    doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-600 bg-amber-500/10 border-amber-500/20'
-                  }`}>
-                    {doc.status}
-                  </span>
-                </div>
-              ))}
+              {studentDocs.length === 0 ? (
+                <div className="p-4 text-center text-zinc-550 text-xs font-medium">No certificates uploaded yet.</div>
+              ) : (
+                studentDocs.map((doc: any, i: number) => (
+                  <div key={doc.id || i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
+                    <span className="font-bold text-zinc-800">{doc.name}</span>
+                    <span className={cn(
+                      "text-[9px] font-bold border px-2 py-0.5 rounded-full uppercase",
+                      doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' :
+                      doc.status === 'REJECTED' ? 'text-rose-650 bg-rose-50 border-rose-100' :
+                      'text-amber-600 bg-amber-500/10 border-amber-500/20'
+                    )}>
+                      {doc.status}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -428,9 +445,20 @@ export default function DashboardPage() {
         </div>
       </div>
     );
-  };
+  };    const renderParentDashboard = () => {
+    const parentApp = applications.find(a => a.parentId === session.id);
+    const wardName = parentApp?.student?.name || 'Aditya Varma';
+    const courseName = parentApp?.course?.name || 'B.Sc Computer Science';
+    const campusName = parentApp?.campus?.name || 'Amalapuram Campus';
+    const trackPath = parentApp ? `/applications/${parentApp.id}` : '/applications';
+    const parentDocs = parentApp?.documents || [];
 
-  const renderParentDashboard = () => {
+    // Get dynamic fee info from mock-db relation or admissions array
+    const admission = parentApp?.admissions?.[0] || parentApp?.admission;
+    const feesPaid = admission?.feesPaid ?? 15000;
+    const totalFees = admission?.totalFees ?? (parentApp?.course?.fees ?? 50000);
+    const pendingFees = totalFees - feesPaid;
+
     return (
       <div className="space-y-6">
         <div className="white-glass-card p-6 rounded-xl relative overflow-hidden">
@@ -439,12 +467,12 @@ export default function DashboardPage() {
               <span className="text-[10px] font-bold text-emerald-600 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
                 Parent Tracker Desk
               </span>
-              <h2 className="text-xl font-bold mt-2 text-zinc-900">Srinivas Varma</h2>
+              <h2 className="text-xl font-bold mt-2 text-zinc-900">{session.name}</h2>
               <p className="text-zinc-650 text-xs mt-1 font-medium">
-                Tracking status for ward: <strong className="text-zinc-900">Aditya Varma</strong> (Selected: B.Sc Computer Science, Amalapuram Campus).
+                Tracking status for ward: <strong className="text-zinc-900">{wardName}</strong> (Selected: {courseName}, {campusName}).
               </p>
             </div>
-            <Link href="/applications/app-1" className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
+            <Link href={trackPath} className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors">
               <FileCheck className="h-4 w-4" />
               <span>Track Application Desk</span>
             </Link>
@@ -455,22 +483,23 @@ export default function DashboardPage() {
           <div className="white-glass-card p-5 rounded-xl lg:col-span-2 space-y-4">
             <h3 className="text-sm font-bold text-zinc-900">Document Compliance List</h3>
             <div className="space-y-2.5">
-              {[
-                { name: 'Aadhaar Card (Aditya Varma)', status: 'APPROVED' },
-                { name: 'SSC Memo (10th)', status: 'APPROVED' },
-                { name: 'Student Photo', status: 'APPROVED' },
-                { name: 'Intermediate Memo (12th)', status: 'PENDING' },
-                { name: 'Transfer Certificate', status: 'PENDING' },
-              ].map((doc, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
-                  <span className="font-bold text-zinc-800">{doc.name}</span>
-                  <span className={`text-[9px] font-bold border px-2 py-0.5 rounded-full ${
-                    doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' : 'text-amber-600 bg-amber-500/10 border-amber-500/20'
-                  }`}>
-                    {doc.status}
-                  </span>
-                </div>
-              ))}
+              {parentDocs.length === 0 ? (
+                <div className="p-4 text-center text-zinc-550 text-xs font-medium">No compliance certificates uploaded.</div>
+              ) : (
+                parentDocs.map((doc: any, i: number) => (
+                  <div key={doc.id || i} className="flex items-center justify-between p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
+                    <span className="font-bold text-zinc-800">{doc.name} ({wardName})</span>
+                    <span className={cn(
+                      "text-[9px] font-bold border px-2 py-0.5 rounded-full uppercase",
+                      doc.status === 'APPROVED' ? 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20' :
+                      doc.status === 'REJECTED' ? 'text-rose-650 bg-rose-50 border-rose-100' :
+                      'text-amber-600 bg-amber-500/10 border-amber-500/20'
+                    )}>
+                      {doc.status}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -482,14 +511,14 @@ export default function DashboardPage() {
                   <p className="font-bold text-zinc-800">First Installment</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Paid via NetBanking</p>
                 </div>
-                <span className="text-emerald-600 font-bold">₹15,000</span>
+                <span className="text-emerald-600 font-bold">{formatCurrency(feesPaid)}</span>
               </div>
               <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 flex justify-between items-center text-xs">
                 <div>
                   <p className="font-bold text-zinc-800">Pending Tuition Due</p>
                   <p className="text-[10px] text-zinc-500 mt-0.5">Due on Admission Approval</p>
                 </div>
-                <span className="text-amber-600 font-bold">₹35,000</span>
+                <span className="text-amber-600 font-bold">{formatCurrency(pendingFees)}</span>
               </div>
             </div>
           </div>

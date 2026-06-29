@@ -255,6 +255,15 @@ export const db = {
             leadId: id,
             createdAt: new Date().toISOString(),
           });
+
+          // Sync Application status back if matching app exists
+          const studentUser = data.users.find(u => u.email.toLowerCase() === oldLead.email.toLowerCase());
+          if (studentUser) {
+            const appIdx = data.applications.findIndex(a => a.studentId === studentUser.id);
+            if (appIdx !== -1) {
+              data.applications[appIdx].status = payload.status;
+            }
+          }
         }
 
         // Log if counsellor assigned
@@ -287,6 +296,18 @@ export const db = {
         logs.push({ action: `Lead assigned to ${counsellor?.name || 'Counsellor'}`, userId: 'usr-1' });
       }
       if (logs.length > 0) {
+        if (payload.status) {
+          const studentUser = await prisma.user.findFirst({
+            where: { email: { equals: oldLead.email, mode: 'insensitive' } }
+          });
+          if (studentUser) {
+            await prisma.application.updateMany({
+              where: { studentId: studentUser.id },
+              data: { status: payload.status }
+            });
+          }
+        }
+
         await prisma.lead.update({
           where: { id },
           data: {
@@ -363,6 +384,7 @@ export const db = {
         program: data.programs.find(p => p.id === a.programId),
         course: data.courses.find(c => c.id === a.courseId),
         documents: data.documents.filter(d => d.applicationId === a.id),
+        admissions: data.admissions.filter(adm => adm.applicationId === a.id),
       })).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
 
@@ -379,7 +401,8 @@ export const db = {
         campus: true,
         program: true,
         course: true,
-        documents: true
+        documents: true,
+        admissions: true
       }
     });
   },
@@ -396,6 +419,7 @@ export const db = {
       const program = data.programs.find(p => p.id === app.programId);
       const course = data.courses.find(c => c.id === app.courseId);
       const documents = data.documents.filter(d => d.applicationId === id);
+      const admissions = data.admissions.filter(adm => adm.applicationId === id);
 
       return {
         ...app,
@@ -405,6 +429,7 @@ export const db = {
         program,
         course,
         documents,
+        admissions,
       };
     }
 
@@ -416,7 +441,8 @@ export const db = {
         campus: true,
         program: true,
         course: true,
-        documents: true
+        documents: true,
+        admissions: true
       }
     });
   },

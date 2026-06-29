@@ -328,14 +328,14 @@
       "mobile": "08500678558",
       "email": "ky9876979@gmail.com",
       "address": "402 Akansha appartments Y junction srinagar gajuwaka\nSai durga bar",
-      "status": "DOCUMENTS_PENDING",
+      "status": "VERIFIED",
       "campusId": "cam-3",
       "programId": "prg-5",
       "courseId": "crs-5",
       "counsellorId": "usr-3",
       "id": "ld-5189",
       "createdAt": "2026-06-29T04:43:38.306Z",
-      "updatedAt": "2026-06-29T04:49:41.928Z"
+      "updatedAt": "2026-06-29T05:51:02.949Z"
     }
   ],
   "applications": [
@@ -388,11 +388,11 @@
       "id": "doc-4",
       "name": "Transfer Certificate",
       "url": "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&auto=format&fit=crop&q=60",
-      "status": "REJECTED",
+      "status": "APPROVED",
       "applicationId": "app-1",
       "createdAt": "2026-06-04T05:03:27.933Z",
-      "rejectionReason": "blur",
-      "updatedAt": "2026-06-29T04:50:59.087Z"
+      "rejectionReason": null,
+      "updatedAt": "2026-06-29T05:50:48.848Z"
     },
     {
       "id": "doc-5",
@@ -513,6 +513,13 @@
       "userId": "usr-1",
       "leadId": "ld-7966",
       "createdAt": "2026-06-29T04:49:49.698Z"
+    },
+    {
+      "id": "lg-2479",
+      "action": "Status changed to VERIFIED",
+      "userId": "usr-1",
+      "leadId": "ld-5189",
+      "createdAt": "2026-06-29T05:51:02.949Z"
     }
   ],
   "notifications": [
